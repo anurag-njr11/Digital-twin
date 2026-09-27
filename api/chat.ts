@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { DEFAULT_MODEL, GeminiProvider } from './_lib/gemini'
 import { createChatHandler } from './_lib/handler'
+import { createLimiter } from './_lib/limits'
+import { createRedis } from './_lib/upstash'
 
 // Built by scripts/build-context.ts and bundled with this function via vercel.json.
 const contextDir = join(process.cwd(), 'api', '_context')
@@ -13,6 +15,10 @@ function getHandler() {
   if (handler) return handler
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set')
+  const { UPSTASH_REDIS_REST_URL: redisUrl, UPSTASH_REDIS_REST_TOKEN: redisToken, IP_HASH_SALT: salt } = process.env
+  // Without Upstash (local dev) the twin runs with no rate limit, cap or logs.
+  const redis = redisUrl && redisToken ? createRedis(redisUrl, redisToken) : undefined
+  if (redis && !salt) throw new Error('IP_HASH_SALT is required when Upstash is configured')
   handler = createChatHandler({
     provider: new GeminiProvider(apiKey, process.env.GEMINI_MODEL || DEFAULT_MODEL),
     persona: read('persona.md'),
@@ -20,6 +26,8 @@ function getHandler() {
     anchors: JSON.parse(read('anchors.json')),
     replies: JSON.parse(read('replies.json')),
     links: JSON.parse(read('links.json')),
+    limiter: redis && salt ? createLimiter(redis, salt) : undefined,
+    evalToken: process.env.EVAL_TOKEN,
   })
   return handler
 }

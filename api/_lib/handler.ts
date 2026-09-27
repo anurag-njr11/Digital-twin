@@ -1,5 +1,6 @@
 import { AnswerFilter } from './answer'
 import { checkInput, isUnsafeOutput, type RefusalReason } from './guardrails'
+import { clientIp, type Limiter } from './limits'
 import { buildSystemPrompt, recentHistory } from './prompt'
 import type { ModelChunk, ModelProvider } from './provider'
 import { ChatRequest } from './schema'
@@ -14,10 +15,13 @@ export type ChatDeps = {
   anchors: Record<string, Anchor>
   replies: Record<string, string>
   links: Links
+  limiter?: Limiter
+  // Requests carrying this token in x-eval-token skip the rate limit (npm run eval).
+  evalToken?: string
   now?: () => number
 }
 
-type ErrorCode = 'bad_request' | 'upstream' | 'rate_limited'
+type ErrorCode = 'bad_request' | 'upstream' | 'rate_limited' | 'daily_cap'
 
 const SSE_HEADERS = {
   'Content-Type': 'text/event-stream; charset=utf-8',
@@ -48,6 +52,12 @@ export function createChatHandler(deps: ChatDeps) {
 
   return async function POST(req: Request): Promise<Response> {
     const started = now()
+
+    const isEval = Boolean(deps.evalToken) && req.headers.get('x-eval-token') === deps.evalToken
+    if (deps.limiter && !isEval) {
+      const limit = await deps.limiter.check(clientIp(req))
+      if (limit !== 'ok') return jsonError(429, limit)
+    }
 
     let body: unknown
     try {

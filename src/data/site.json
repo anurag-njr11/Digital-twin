@@ -1,12 +1,13 @@
 {
-  "twinEnabled": false,
+  "twinEnabled": true,
   "nav": [
     { "id": "about", "label": "About" },
     { "id": "experience", "label": "Experience" },
     { "id": "projects", "label": "Projects" },
     { "id": "research", "label": "Research" },
     { "id": "skills", "label": "Skills" },
-    { "id": "contact", "label": "Contact" }
+    { "id": "contact", "label": "Contact" },
+    { "id": "twin", "label": "Ask my twin" }
   ],
   "sections": {
     "about": { "title": "About" },
@@ -41,5 +42,32 @@
     "closeMenu": "Close menu",
     "toggleTheme": "Toggle dark mode",
     "footer": "Built with React, Vite and Tailwind CSS."
+  },
+  "twin": {
+    "title": "Ask my twin",
+    "disclosure": "I'm an AI assistant trained on Anurag's portfolio. I can be wrong.",
+    "suggestions": [
+      "What did you do at your internship?",
+      "How did you handle class imbalance in the intrusion detection project?",
+      "Which of your projects used Gemini?",
+      "How can I contact you?"
+    ],
+    "placeholder": "Ask about my work…",
+    "send": "Send",
+    "close": "Close chat",
+    "open": "Chat with my twin",
+    "clear": "New chat",
+    "you": "You",
+    "twin": "Twin",
+    "thinking": "Thinking…",
+    "sources": "Sources",
+    "charCount": "{count} of {max} characters",
+    "errors": {
+      "rate_limited": "You've sent a lot of questions in a short time. Please wait a few minutes and try again.",
+      "daily_cap": "The twin has hit its limit for today. Try again tomorrow, or email me at {email}.",
+      "upstream": "Something went wrong on my side. Please try again, or email me at {email}.",
+      "bad_request": "That message couldn't be sent. Keep it under 500 characters and try again.",
+      "network": "Couldn't reach the server. Check your connection and try again."
+    }
   }
 }

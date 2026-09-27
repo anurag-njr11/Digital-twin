@@ -1,4 +1,7 @@
+import { Suspense, lazy } from 'react'
 import Navbar from './components/Navbar'
+import TwinButton from './components/TwinButton'
+import useTwinPanel from './hooks/useTwinPanel'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Experience from './sections/Experience'
@@ -8,7 +11,11 @@ import Skills from './sections/Skills'
 import Contact from './sections/Contact'
 import site from './data/site.json'
 
+const TwinPanel = lazy(() => import('./components/TwinPanel'))
+
 export default function App() {
+  const twin = useTwinPanel()
+
   return (
     <div className="min-h-screen bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
       <a
@@ -30,6 +37,12 @@ export default function App() {
       <footer className="mx-auto max-w-4xl border-t border-zinc-200 px-4 py-8 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
         {site.labels.footer}
       </footer>
+      {site.twinEnabled && !twin.open && <TwinButton onClick={twin.show} />}
+      {twin.open && (
+        <Suspense fallback={null}>
+          <TwinPanel onClose={twin.hide} />
+        </Suspense>
+      )}
     </div>
   )
 }

@@ -2,6 +2,15 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --animate-slide-in: slide-in 200ms ease-out;
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+    }
+  }
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;

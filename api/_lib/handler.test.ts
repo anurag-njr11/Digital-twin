@@ -119,3 +119,32 @@ describe('POST /api/chat', () => {
     expect(seen[0].messages[0]).toEqual({ role: 'user', content: 'm0' })
   })
 })
+
+describe('limits', () => {
+  const limited = (result: 'rate_limited' | 'daily_cap') =>
+    createChatHandler({
+      provider: fakeProvider([[text('ok')]]),
+      persona: 'P',
+      context: 'C',
+      anchors,
+      replies,
+      links,
+      limiter: { check: async () => result },
+      evalToken: 'secret',
+    })
+
+  it.each(['rate_limited', 'daily_cap'] as const)('returns 429 %s', async (code) => {
+    const res = await limited(code)(ask('Hello'))
+    expect(res.status).toBe(429)
+    expect(await res.json()).toEqual({ error: { code } })
+  })
+
+  it('lets eval requests with the right token through', async () => {
+    const req = new Request('http://localhost/api/chat', {
+      method: 'POST',
+      headers: { 'x-eval-token': 'secret' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: 'Hello' }] }),
+    })
+    expect((await limited('rate_limited')(req)).status).toBe(200)
+  })
+})
