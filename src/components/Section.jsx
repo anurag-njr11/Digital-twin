@@ -24,7 +24,7 @@ export default function Section({ id, index, title, children }) {
 
   return (
     <section id={id} ref={ref} aria-labelledby={`${id}-title`} className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
-      <p className="font-mono text-xs tracking-[0.3em] text-blue-700 uppercase dark:text-neon">
+      <p className="font-mono text-xs tracking-[0.3em] uppercase text-neon">
         {'// '}
         {index}
       </p>

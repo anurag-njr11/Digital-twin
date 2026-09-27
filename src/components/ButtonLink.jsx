@@ -3,9 +3,9 @@ const base =
 
 const variants = {
   primary:
-    'bg-blue-600 text-white shadow-[0_0_30px_rgba(37,99,235,0.35)] hover:bg-blue-500 dark:bg-neon dark:text-ink dark:hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]',
+    'shadow-[0_0_30px_rgba(37,99,235,0.35)] hover:bg-blue-500 bg-neon text-ink hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]',
   secondary:
-    'glass text-zinc-800 hover:border-blue-500/50 hover:text-blue-700 dark:text-zinc-100 dark:hover:border-white/30 dark:hover:text-white',
+    'glass text-zinc-100 hover:border-white/30 hover:text-white',
 }
 
 export default function ButtonLink({ href, variant = 'secondary', external = false, children }) {

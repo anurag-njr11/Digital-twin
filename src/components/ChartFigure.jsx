@@ -5,7 +5,7 @@ import site from '../data/site.json'
 export default function ChartFigure({ title, columns, rows, legend, children }) {
   return (
     <figure data-reveal className="glass flex h-full flex-col rounded-2xl p-5">
-      <figcaption className="font-mono text-[11px] tracking-[0.2em] text-zinc-600 uppercase dark:text-zinc-400">{title}</figcaption>
+      <figcaption className="font-mono text-[11px] tracking-[0.2em] uppercase text-zinc-400">{title}</figcaption>
       {legend}
       <div aria-hidden="true" className="mt-4 flex flex-1 items-center">
         {children}

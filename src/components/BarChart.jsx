@@ -25,16 +25,16 @@ export default function BarChart({ chart }) {
             <g key={d.label} className="group">
               <title>{`${d.label}: ${fmt(d.value)}`}</title>
               <rect x="0" y={y} width={W} height={ROW} className="fill-transparent" />
-              <text x={LABEL_W - 8} y={y + ROW / 2} dominantBaseline="middle" textAnchor="end" className="fill-zinc-600 font-mono text-[10px] dark:fill-zinc-400">
+              <text x={LABEL_W - 8} y={y + ROW / 2} dominantBaseline="middle" textAnchor="end" className="font-mono text-[10px] fill-zinc-400">
                 {d.label}
               </text>
-              <rect x={LABEL_W} y={y + (ROW - BAR) / 2} width={TRACK} height={BAR} rx="4" className="fill-zinc-200/60 dark:fill-white/5" />
+              <rect x={LABEL_W} y={y + (ROW - BAR) / 2} width={TRACK} height={BAR} rx="4" className="fill-white/5" />
               <path
                 data-bar-h
                 d={barPath(LABEL_W, y + (ROW - BAR) / 2, w, BAR)}
-                className="fill-blue-600 transition-opacity group-hover:opacity-80 dark:fill-blue-500"
+                className="transition-opacity group-hover:opacity-80 fill-blue-500"
               />
-              <text x={LABEL_W + w + 6} y={y + ROW / 2} dominantBaseline="middle" className="fill-zinc-800 font-mono text-[10px] dark:fill-zinc-200">
+              <text x={LABEL_W + w + 6} y={y + ROW / 2} dominantBaseline="middle" className="font-mono text-[10px] fill-zinc-200">
                 {fmt(d.value)}
               </text>
             </g>

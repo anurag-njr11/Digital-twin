@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import ThemeToggle from './ThemeToggle'
 import profile from '../data/profile.json'
 import site from '../data/site.json'
 
@@ -9,7 +8,7 @@ const initials = profile.name
   .join('')
 
 const linkClass =
-  'rounded-md px-3 py-2 text-sm text-zinc-600 transition hover:text-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-zinc-400 dark:hover:text-white'
+  'rounded-md px-3 py-2 text-sm transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-zinc-400 hover:text-white'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -35,7 +34,7 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-40 border-b transition-colors duration-300 ${
         solid
-          ? 'border-zinc-200/80 bg-zinc-50/80 backdrop-blur-md dark:border-white/10 dark:bg-ink/70'
+          ? 'backdrop-blur-md border-white/10 bg-ink/70'
           : 'border-transparent bg-transparent'
       }`}
     >
@@ -43,10 +42,10 @@ export default function Navbar() {
         <a
           href="#top"
           aria-label={profile.name}
-          className="rounded-md font-display text-xl font-bold text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-white"
+          className="rounded-md font-display text-xl font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-white"
         >
           {initials}
-          <span className="text-blue-600 dark:text-neon">.</span>
+          <span className="text-neon">.</span>
         </a>
 
         <div className="flex items-center gap-1">
@@ -55,17 +54,16 @@ export default function Navbar() {
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className={item.id === 'twin' ? `${linkClass} font-medium text-blue-700 dark:text-neon` : linkClass}
+                  className={item.id === 'twin' ? `${linkClass} font-medium text-neon` : linkClass}
                 >
                   {item.label}
                 </a>
               </li>
             ))}
           </ul>
-          <ThemeToggle />
           <button
             type="button"
-            className="rounded-md p-2 text-zinc-600 hover:bg-zinc-200/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 md:hidden dark:text-zinc-400 dark:hover:bg-white/10"
+            className="rounded-md p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 md:hidden text-zinc-400 hover:bg-white/10"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? site.labels.closeMenu : site.labels.openMenu}
@@ -79,7 +77,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <ul id="mobile-menu" className="border-t border-zinc-200 px-4 py-2 md:hidden dark:border-white/10">
+        <ul id="mobile-menu" className="border-t px-4 py-2 md:hidden border-white/10">
           {site.nav.map((item) => (
             <li key={item.id}>
               <a href={`#${item.id}`} className={`block ${linkClass}`} onClick={() => setOpen(false)}>

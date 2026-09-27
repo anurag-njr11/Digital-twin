@@ -88,10 +88,6 @@ export default function useTwinChat() {
     [busy, messages],
   )
 
-  const clear = useCallback(() => {
-    abortRef.current?.abort()
-    setMessages([])
-  }, [])
 
-  return { messages, busy, send, clear }
+  return { messages, busy, send }
 }

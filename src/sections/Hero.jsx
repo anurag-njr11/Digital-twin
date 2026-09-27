@@ -11,12 +11,12 @@ const lastName = rest.join(' ')
 
 // Per-letter shades so the last name reads as one gradient, even though each letter animates on its own.
 const SHADES = [
-  'text-blue-800 dark:text-white',
-  'text-blue-700 dark:text-cyan-50',
-  'text-blue-600 dark:text-cyan-100',
-  'text-cyan-700 dark:text-cyan-200',
-  'text-cyan-600 dark:text-cyan-300',
-  'text-cyan-600 dark:text-cyan-400',
+  'text-white',
+  'text-cyan-50',
+  'text-cyan-100',
+  'text-cyan-200',
+  'text-cyan-300',
+  'text-cyan-400',
 ]
 
 function Letters({ word, gradient = false }) {
@@ -91,21 +91,21 @@ export default function Hero() {
       className="relative flex min-h-[min(calc(100svh-3.5rem),56rem)] flex-col items-center justify-center overflow-hidden py-20 text-center"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div data-ring className="absolute size-[22rem] rounded-full border border-blue-500/20 sm:size-[26rem] dark:border-white/10" />
-        <div data-ring className="absolute size-[34rem] rounded-full border border-blue-500/15 sm:size-[40rem] dark:border-white/5" />
-        <div data-ring className="absolute size-[46rem] rounded-full border border-blue-500/10 sm:size-[54rem] dark:border-white/5" />
+        <div data-ring className="absolute size-[22rem] rounded-full border sm:size-[26rem] border-white/10" />
+        <div data-ring className="absolute size-[34rem] rounded-full border sm:size-[40rem] border-white/5" />
+        <div data-ring className="absolute size-[46rem] rounded-full border sm:size-[54rem] border-white/5" />
         <div className="absolute size-[36rem] rounded-full bg-linear-to-tr from-blue-500/10 to-purple-500/10 blur-[120px]" />
       </div>
 
       <div className="relative">
-        <p data-hero-tag className="mb-6 flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.3em] text-blue-700 uppercase dark:text-blue-400">
+        <p data-hero-tag className="mb-6 flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.3em] uppercase text-blue-400">
           <span className="size-2 animate-pulse rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
           {site.hero.tag}
         </p>
 
         <h1 id="hero-title" className="font-display text-6xl leading-[0.85] font-bold tracking-tighter sm:text-8xl lg:text-9xl">
           <span className="sr-only">{profile.name}</span>
-          <span aria-hidden="true" className="block text-zinc-900 dark:text-white dark:drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+          <span aria-hidden="true" className="block text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]">
             <Letters word={firstName} />
           </span>
           <span aria-hidden="true" className="block">
@@ -113,16 +113,16 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p data-hero-fade className="mt-6 flex h-8 items-center justify-center font-mono text-base text-zinc-600 sm:text-2xl dark:text-white/70">
+        <p data-hero-fade className="mt-6 flex h-8 items-center justify-center font-mono text-base sm:text-2xl text-white/70">
           <span className="sr-only">{profile.roleLine}</span>
           <span aria-hidden="true" className="flex items-center">
-            <span className="mr-2 text-blue-600 dark:text-neon">&gt;_</span>
+            <span className="mr-2 text-neon">&gt;_</span>
             {typed}
-            <span className="ml-1 inline-block h-6 w-2 animate-pulse bg-blue-600 sm:h-7 dark:bg-neon" />
+            <span className="ml-1 inline-block h-6 w-2 animate-pulse sm:h-7 bg-neon" />
           </span>
         </p>
 
-        <p data-hero-fade className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
+        <p data-hero-fade className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-zinc-300">
           {profile.summary}
         </p>
 
@@ -149,7 +149,7 @@ export default function Hero() {
       <a
         href="#about"
         aria-label={site.hero.scrollDown}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce rounded-full p-2 text-zinc-400 hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-white/40 dark:hover:text-neon-cyan"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce rounded-full p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-white/40 hover:text-neon-cyan"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M6 9l6 6 6-6" />

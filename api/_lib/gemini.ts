@@ -52,7 +52,8 @@ export class GeminiProvider implements ModelProvider {
     const config = {
       systemInstruction: system,
       safetySettings: SAFETY_SETTINGS,
-      maxOutputTokens: 800,
+      // Answers are meant to be one to three sentences; this leaves room for the sources line after them.
+      maxOutputTokens: 320,
       // Thinking burned most of the output budget (and ~5s) on answers that only restate the pack.
       thinkingConfig: { thinkingBudget: 0 },
       tools: tools.length ? [{ functionDeclarations: tools.map(({ name, description }) => ({ name, description })) }] : undefined,

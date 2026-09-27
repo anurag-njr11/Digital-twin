@@ -15,7 +15,7 @@ export default function About() {
         <div className="lg:col-span-7 lg:row-span-2">
           <InfoCard icon="brain" accent="blue" eyebrow={site.labels.bio}>
             <div className="flex h-full flex-col justify-between gap-6">
-              <p className="font-display text-xl leading-snug font-medium text-zinc-900 sm:text-2xl dark:text-white">{lead}</p>
+              <p className="font-display text-xl leading-snug font-medium sm:text-2xl text-white">{lead}</p>
               <div className="space-y-4 text-base leading-relaxed">
                 {rest.map((p) => (
                   <p key={p}>{p}</p>

@@ -24,11 +24,11 @@ export default function Highlights() {
           <li
             key={a.id}
             data-highlight
-            className={`p-6 sm:p-8 ${i ? 'border-t md:border-t-0 md:border-l' : ''} border-zinc-200/80 dark:border-white/[0.07]`}
+            className={`p-6 sm:p-8 ${i ? 'border-t md:border-t-0 md:border-l' : ''} border-white/[0.07]`}
           >
             <a href="#research" className="group block rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500">
               <p className="text-gradient font-display text-3xl font-bold tracking-tight sm:text-4xl">{a.highlight}</p>
-              <p className="mt-2 font-mono text-[11px] tracking-[0.15em] text-zinc-500 uppercase transition group-hover:text-amber-600 dark:text-zinc-400 dark:group-hover:text-amber-300">
+              <p className="mt-2 font-mono text-[11px] tracking-[0.15em] uppercase transition text-zinc-400 group-hover:text-amber-300">
                 {a.title}
               </p>
             </a>

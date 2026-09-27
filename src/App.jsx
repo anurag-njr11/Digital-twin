@@ -22,7 +22,7 @@ export default function App() {
   useSpotlight()
 
   return (
-    <div className="min-h-screen font-sans text-zinc-900 antialiased dark:text-zinc-100">
+    <div className="min-h-screen font-sans antialiased text-zinc-100">
       <Background />
       <a
         href="#main"
@@ -42,7 +42,7 @@ export default function App() {
         {site.twinEnabled && <TwinCta onAsk={twin.ask} />}
         <Contact />
       </main>
-      <footer className="mx-auto max-w-7xl border-t border-zinc-200 px-4 py-10 font-mono text-xs leading-relaxed text-zinc-500 sm:px-6 dark:border-white/10 dark:text-zinc-500">
+      <footer className="mx-auto max-w-7xl border-t px-4 py-10 font-mono text-xs leading-relaxed sm:px-6 border-white/10 text-zinc-500">
         <p>{site.labels.footer}</p>
         {site.twinEnabled && <p className="mt-2">{site.labels.privacy}</p>}
       </footer>

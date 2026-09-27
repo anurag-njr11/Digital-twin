@@ -42,8 +42,6 @@ export default function Background() {
     }))
 
     const draw = () => {
-      // Lighter touch on the light theme so text stays easy to read.
-      const k = document.documentElement.classList.contains('dark') ? 1 : 0.6
       ctx.clearRect(0, 0, w, h)
       for (const p of particles) {
         if (!still) {
@@ -52,7 +50,7 @@ export default function Background() {
         }
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${p.c}, ${p.a * k})`
+        ctx.fillStyle = `rgba(${p.c}, ${p.a})`
         ctx.fill()
       }
       for (let i = 0; i < particles.length; i++) {
@@ -61,7 +59,7 @@ export default function Background() {
           const q = particles[j]
           const d = Math.hypot(p.x - q.x, p.y - q.y)
           if (d < linkDist) {
-            ctx.strokeStyle = `rgba(${p.c}, ${(1 - d / linkDist) * 0.14 * k})`
+            ctx.strokeStyle = `rgba(${p.c}, ${(1 - d / linkDist) * 0.14})`
             ctx.lineWidth = 0.6
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
@@ -71,7 +69,7 @@ export default function Background() {
         }
         const dm = Math.hypot(p.x - mouse.x, p.y - mouse.y)
         if (dm < mouseDist) {
-          ctx.strokeStyle = `rgba(34, 211, 238, ${(1 - dm / mouseDist) * 0.35 * k})`
+          ctx.strokeStyle = `rgba(34, 211, 238, ${(1 - dm / mouseDist) * 0.35})`
           ctx.lineWidth = 0.8
           ctx.beginPath()
           ctx.moveTo(p.x, p.y)
@@ -115,13 +113,13 @@ export default function Background() {
   }, [])
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-slate-50 dark:bg-ink">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink">
       <canvas ref={canvasRef} className="absolute inset-0 size-full" />
       <Orb />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] bg-size-[50px_50px] dark:bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)]" />
-      <div className="absolute -top-1/4 -left-1/4 size-[70%] rounded-full bg-blue-400/10 blur-[150px] dark:bg-blue-900/20" />
-      <div className="absolute -right-1/4 -bottom-1/4 size-[80%] rounded-full bg-purple-400/10 blur-[180px] dark:bg-purple-900/15" />
-      <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_center,transparent_20%,#000000a0_100%)] dark:block" />
+      <div className="absolute inset-0 mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] bg-size-[50px_50px] bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)]" />
+      <div className="absolute -top-1/4 -left-1/4 size-[70%] rounded-full blur-[150px] bg-blue-900/20" />
+      <div className="absolute -right-1/4 -bottom-1/4 size-[80%] rounded-full blur-[180px] bg-purple-900/15" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#000000a0_100%)]" />
     </div>
   )
 }

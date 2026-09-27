@@ -73,7 +73,6 @@
     "skipToContent": "Skip to content",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "toggleTheme": "Toggle dark mode",
     "footer": "Built with React, Vite and Tailwind CSS.",
     "privacy": "Privacy: the chat assistant keeps your conversation only in this browser tab. The server logs the questions asked, with no IP address or other identifier, and deletes them after 90 days. No cookies.",
     "pipeline": "Pipeline",
@@ -87,6 +86,9 @@
   "twin": {
     "title": "Ask my twin",
     "disclosure": "I'm an AI assistant trained on Anurag's portfolio. I can be wrong.",
+    "welcome": "Hi, I’m Anurag’s AI twin.",
+    "welcomeText": "Ask about my projects, internship, research or skills. Answers are short and point to where they came from.",
+    "tryAsking": "Try asking",
     "suggestions": [
       "What did you do at your internship?",
       "How did you handle class imbalance in the intrusion detection project?",
@@ -97,10 +99,15 @@
     "send": "Send",
     "close": "Close chat",
     "open": "Chat with my twin",
-    "clear": "New chat",
     "you": "You",
     "twin": "Twin",
     "thinking": "Thinking…",
+    "status": {
+      "idle": "Online",
+      "thinking": "Thinking",
+      "writing": "Writing",
+      "error": "Hit a snag"
+    },
     "sources": "Sources",
     "charCount": "{count} of {max} characters",
     "errors": {

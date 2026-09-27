@@ -97,7 +97,6 @@ export default function Orb() {
     resize()
 
     const draw = () => {
-      const dark = document.documentElement.classList.contains('dark')
       const max = document.documentElement.scrollHeight - h
       const target = max > 0 ? window.scrollY / max : 0
       s.progress += (target - s.progress) * 0.05
@@ -127,7 +126,6 @@ export default function Orb() {
       const waveTilt = a + 1 === SHAPES.length - 1 ? f * 0.55 : 0
       const ax = 0.35 + waveTilt + Math.sin(s.t * 0.3) * 0.25 + s.tiltX
       const [sy, cyr, sx, cxr] = [Math.sin(ay), Math.cos(ay), Math.sin(ax), Math.cos(ax)]
-      const k = dark ? 1 : 0.6
       const hueShift = s.t * 0.03
 
       // Project every point once.
@@ -154,7 +152,7 @@ export default function Orb() {
       }
 
       ctx.clearRect(0, 0, w, h)
-      ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over'
+      ctx.globalCompositeOperation = 'lighter'
 
       // Filaments between neighbours.
       ctx.lineWidth = 0.6
@@ -167,7 +165,7 @@ export default function Orb() {
         const d = Math.hypot(x1 - x0, y1 - y0)
         if (d > linkMax) continue
         const depth = proj[i * 3 + 2]
-        ctx.strokeStyle = `${colorAt(i / n + hueShift)}${(0.05 + depth * 0.22) * (1 - d / linkMax) * k})`
+        ctx.strokeStyle = `${colorAt(i / n + hueShift)}${(0.05 + depth * 0.22) * (1 - d / linkMax)})`
         ctx.beginPath()
         ctx.moveTo(x0, y0)
         ctx.lineTo(x1, y1)
@@ -178,7 +176,7 @@ export default function Orb() {
       for (let i = 0; i < n; i++) {
         const depth = proj[i * 3 + 2]
         const twinkle = 0.75 + Math.sin(s.t * 3 + phase[i] * 3) * 0.25
-        ctx.fillStyle = `${colorAt(i / n + hueShift)}${(0.12 + depth * 0.6) * twinkle * k})`
+        ctx.fillStyle = `${colorAt(i / n + hueShift)}${(0.12 + depth * 0.6) * twinkle})`
         ctx.beginPath()
         ctx.arc(proj[i * 3], proj[i * 3 + 1], 0.4 + depth * 1.5, 0, Math.PI * 2)
         ctx.fill()
