@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { DAILY_CAP, RATE_LIMIT, clientIp, createLimiter, hashIp } from './limits'
-import type { Redis } from './upstash'
+import { DAILY_CAP, RATE_LIMIT, clientIp, createLimiter, hashIp } from './limits.js'
+import type { Redis } from './upstash.js'
 
 function memoryRedis(): Redis & { keys: string[] } {
   const counts = new Map<string, number>()

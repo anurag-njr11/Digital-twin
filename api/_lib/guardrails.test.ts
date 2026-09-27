@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CANARY, checkInput, isUnsafeOutput } from './guardrails'
+import { CANARY, checkInput, isUnsafeOutput } from './guardrails.js'
 
 describe('checkInput', () => {
   it.each([

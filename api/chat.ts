@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { DEFAULT_MODEL, GeminiProvider } from './_lib/gemini'
-import { createChatHandler } from './_lib/handler'
-import { createLimiter } from './_lib/limits'
-import { createLogger } from './_lib/logs'
-import { createRedis } from './_lib/upstash'
+import { DEFAULT_MODEL, GeminiProvider } from './_lib/gemini.js'
+import { createChatHandler } from './_lib/handler.js'
+import { createLimiter } from './_lib/limits.js'
+import { createLogger } from './_lib/logs.js'
+import { createRedis } from './_lib/upstash.js'
 
 // Built by scripts/build-context.ts and bundled with this function via vercel.json.
 const contextDir = join(process.cwd(), 'api', '_context')

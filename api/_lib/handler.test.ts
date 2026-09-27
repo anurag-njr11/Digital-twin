@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { createChatHandler } from './handler'
-import type { ModelChunk, ModelProvider, ModelRequest } from './provider'
+import { createChatHandler } from './handler.js'
+import type { ModelChunk, ModelProvider, ModelRequest } from './provider.js'
 
 const links = { email: 'me@example.com', github: 'https://github.com/me', linkedin: 'https://linkedin.com/in/me', resume: null }
 const replies = { out_of_scope: 'OOS', no_context: 'NC', moderation: 'MOD', contact: 'CONTACT' }

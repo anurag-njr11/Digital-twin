@@ -1,4 +1,4 @@
-import type { Redis } from './upstash'
+import type { Redis } from './upstash.js'
 
 export const LOG_TTL_SECONDS = 90 * 24 * 60 * 60
 

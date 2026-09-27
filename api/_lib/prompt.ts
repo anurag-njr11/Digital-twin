@@ -1,6 +1,6 @@
-import { NO_CONTEXT, SOURCES_MARKER } from './answer'
-import { CANARY } from './guardrails'
-import type { ChatMessage } from './provider'
+import { NO_CONTEXT, SOURCES_MARKER } from './answer.js'
+import { CANARY } from './guardrails.js'
+import type { ChatMessage } from './provider.js'
 
 // R4.4: the last 10 turns (a question and its answer each).
 export const HISTORY_MESSAGES = 20

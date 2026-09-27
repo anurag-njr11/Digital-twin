@@ -1,4 +1,4 @@
-import type { Tool } from './provider'
+import type { Tool } from './provider.js'
 
 export type Links = { email: string; github: string; linkedin: string; resume: string | null }
 

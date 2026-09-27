@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { AnswerFilter, parseSourceIds } from './answer'
-import { isUnsafeOutput } from './guardrails'
+import { AnswerFilter, parseSourceIds } from './answer.js'
+import { isUnsafeOutput } from './guardrails.js'
 
 const EMAIL = 'me@example.com'
 

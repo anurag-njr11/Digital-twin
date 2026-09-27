@@ -1,5 +1,5 @@
 import { FinishReason, GoogleGenAI, HarmBlockThreshold, HarmCategory, type Content, type Part } from '@google/genai'
-import type { ModelChunk, ModelProvider, ModelRequest } from './provider'
+import type { ModelChunk, ModelProvider, ModelRequest } from './provider.js'
 
 // "latest" alias tracks Google's current Flash model; pin a version with GEMINI_MODEL if it changes behaviour.
 export const DEFAULT_MODEL = 'gemini-flash-latest'

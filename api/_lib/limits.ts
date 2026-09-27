@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import type { Redis } from './upstash'
+import type { Redis } from './upstash.js'
 
 export const RATE_LIMIT = 20
 export const RATE_WINDOW_SECONDS = 10 * 60

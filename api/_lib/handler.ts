@@ -1,11 +1,11 @@
-import { AnswerFilter } from './answer'
-import { checkInput, isUnsafeOutput, type RefusalReason } from './guardrails'
-import { clientIp, type Limiter } from './limits'
-import type { LogEntry, Logger } from './logs'
-import { buildSystemPrompt, recentHistory } from './prompt'
-import type { ModelChunk, ModelProvider } from './provider'
-import { ChatRequest } from './schema'
-import { createTools, type Links } from './tools'
+import { AnswerFilter } from './answer.js'
+import { checkInput, isUnsafeOutput, type RefusalReason } from './guardrails.js'
+import { clientIp, type Limiter } from './limits.js'
+import type { LogEntry, Logger } from './logs.js'
+import { buildSystemPrompt, recentHistory } from './prompt.js'
+import type { ModelChunk, ModelProvider } from './provider.js'
+import { ChatRequest } from './schema.js'
+import { createTools, type Links } from './tools.js'
 
 export type Anchor = { title: string; section: string; anchor: string | null }
 
