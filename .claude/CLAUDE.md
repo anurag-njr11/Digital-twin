@@ -1,0 +1,43 @@
+# Anurag Singh — Portfolio
+
+Personal portfolio for Anurag Singh, an ML and agentic AI student (B.Tech, Atria University, 2028).
+Audience: recruiters and engineers. They should understand who I am and what I've built in under a minute.
+
+Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different -->
+
+## Commands
+- `npm run dev`: start the local dev server
+- `npm run build`: production build (must pass before any commit)
+- `npm run lint`: ESLint
+- `npm run preview`: preview the production build locally
+
+## Structure
+- `src/components/`: reusable UI pieces (Navbar, ProjectCard, Section)
+- `src/sections/`: page sections (Hero, About, Experience, Projects, Research, Contact)
+- `src/data/`: all site content as JS/JSON (projects, experience, skills, links)
+- `public/`: static assets (resume PDF, images, favicon)
+
+## Content rules
+- IMPORTANT: all text lives in `src/data/`. Never hardcode bio, project, or experience text inside components.
+- Never invent projects, metrics, dates, or skills. If something is missing, ask me.
+- Keep real numbers as they are (e.g. ~99% accuracy, R² ≈ 0.98). Don't round up or exaggerate.
+- Write like a person, not a LinkedIn bot. Short sentences, no buzzwords like "passionate", "leveraging", "cutting-edge".
+- Never put my phone number on the site. Email, GitHub, and LinkedIn are fine.
+
+## Code style
+- Functional components with hooks only, one component per file, PascalCase filenames
+- Style with Tailwind utility classes. No inline styles, no new CSS files unless needed.
+- Don't add new dependencies without asking first
+
+## Design
+- Minimal and clean, mobile-first, with dark mode support
+- Readability over animation. Keep motion subtle and respect `prefers-reduced-motion`.
+- Images need alt text, and the site should stay accessible with a keyboard.
+
+## Workflow
+- Small, focused changes. Explain what changed and why.
+- After UI changes, run `npm run build` and check the page on both mobile and desktop widths.
+- Commit messages: short and in the imperative, e.g. `add projects section`
+
+## Gotchas
+- The resume PDF in `public/` must match the content in `src/data/`. Flag it if they drift apart.

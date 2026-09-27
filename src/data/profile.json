@@ -1,0 +1,27 @@
+{
+  "name": "Anurag Singh",
+  "roleLine": "Machine Learning · AI Systems · Agentic AI",
+  "summary": "B.Tech student at Atria University who builds machine learning pipelines and AI-powered applications.",
+  "location": "Bengaluru, India",
+  "education": {
+    "school": "Atria University",
+    "location": "Bengaluru, India",
+    "degree": "Bachelor of Technology (B.Tech) in Digital Transformation",
+    "graduation": "Expected 2028"
+  },
+  "about": [
+    "I'm a B.Tech student in Digital Transformation at Atria University. I work on machine learning and AI systems: classification and regression pipelines, data analysis, and apps that use LLMs to do real work.",
+    "Most of my work is in Python with Scikit-learn, Pandas and LangChain. Lately I've been building agentic systems: multi-agent setups, RAG, and tools over the Model Context Protocol (MCP). I'm comfortable with Linux, SQL, Git and Bash, and I know the basics of MLOps.",
+    "I'm especially interested in applying ML and agentic AI to financial technology and systematic trading."
+  ],
+  "interests": [
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Intelligent Systems",
+    "Data Science",
+    "Financial Technology",
+    "Systematic Trading",
+    "Sustainable Development Goals (SDG)",
+    "Sustainability & Climate Innovation"
+  ]
+}

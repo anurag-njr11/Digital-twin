@@ -1,0 +1,59 @@
+{
+  "papers": [
+    {
+      "id": "critical-thinking-framework",
+      "title": "Rebuilding Critical Thinking in the AI Era: A University Learning Framework",
+      "role": "Lead Author",
+      "area": "AI in Education & Learning Systems Research",
+      "bullets": [
+        "A framework for how universities can bring AI into teaching while protecting critical thinking and conceptual learning.",
+        "Proposes a multi-stage learning architecture: AI-assisted exploration, human-only reflection, adaptive assignments and process-based assessment.",
+        "Looks at the effects of AI overdependence and ways to keep students cognitively engaged."
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "id": "startathon-rebin",
+      "text": "Top 10 Finalist at India Sustainability Startathon; received a promissory seed funding agreement for my startup idea ReBin."
+    },
+    {
+      "id": "tie-u-bangalore",
+      "text": "Semi-finalist at TiE U Bangalore Chapter 2025."
+    },
+    {
+      "id": "pjmt-green-earth",
+      "text": "Qualified for the South Zonal Round of the PJMT National Green Earth Challenge 2026."
+    }
+  ],
+  "certifications": [
+    {
+      "id": "langchain-intro",
+      "name": "Introduction to LangChain",
+      "issuer": "LangChain",
+      "date": "Jul 2026",
+      "credentialId": "g87ju0y9ij"
+    },
+    {
+      "id": "fcc-scientific-python",
+      "name": "Scientific Computing with Python",
+      "issuer": "freeCodeCamp",
+      "date": "Jun 2026",
+      "credentialId": "ace_1729-scwp"
+    }
+  ],
+  "leadership": [
+    {
+      "id": "football-captain",
+      "text": "University Football Captain; runner-up in the inter-department football tournament."
+    },
+    {
+      "id": "kvs-taekwondo",
+      "text": "Represented Kendriya Vidyalaya Sangathan at a national-level Taekwondo competition."
+    },
+    {
+      "id": "ncc-b",
+      "text": "NCC 'B' Certificate holder."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ids-cvss-pipeline",
+    "title": "Two-Stage ML Pipeline: Intrusion Detection & CVSS Severity",
+    "date": "Apr 2026",
+    "stack": ["Python", "Scikit-learn", "Pandas", "XGBoost", "Random Forest", "SMOTE"],
+    "summary": "Detects network intrusions on the KDD99 dataset, then predicts CVSS severity from CVE data. It simulates a SOC-style workflow: detect a threat, then prioritize it.",
+    "metrics": ["~99% classification accuracy", "R² ≈ 0.98 severity prediction"],
+    "repo": null,
+    "details": [
+      "Two-stage pipeline: intrusion detection on KDD99, then CVSS severity prediction on CVE data.",
+      "Random Forest and XGBoost ensembles for accuracy and robustness.",
+      "SMOTE and One-vs-Rest classification to handle class imbalance and improve minority-class recall.",
+      "Model evaluation and hyperparameter tuning; artifacts prepared for potential deployment."
+    ]
+  },
+  {
+    "id": "symbio-nlm",
+    "title": "Symbio-NLM: AI-Powered DNA Insight & Summary Platform",
+    "date": null,
+    "stack": ["React.js", "Node.js", "Express.js", "MongoDB", "Gemini AI"],
+    "summary": "A genomics web app that analyzes DNA sequences and explains them in plain language. The backend does the sequence analysis; Gemini writes the summaries and powers a chat assistant.",
+    "metrics": [],
+    "repo": null,
+    "details": [
+      "Backend processing for GC-content analysis, ORF detection, nucleotide distribution and FASTA validation.",
+      "Gemini AI APIs for sequence-specific natural-language summaries and chatbot-based genomics help.",
+      "Animated AI assistant chatbot with contextual interactions, built with GSAP.",
+      "REST API with JWT and bcrypt authentication."
+    ]
+  }
+]

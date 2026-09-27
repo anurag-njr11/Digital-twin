@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.vercel
+*.log
+
+# Contains phone number; keep out of the public repo
+resume.md

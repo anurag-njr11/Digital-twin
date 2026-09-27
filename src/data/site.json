@@ -1,0 +1,45 @@
+{
+  "twinEnabled": false,
+  "nav": [
+    { "id": "about", "label": "About" },
+    { "id": "experience", "label": "Experience" },
+    { "id": "projects", "label": "Projects" },
+    { "id": "research", "label": "Research" },
+    { "id": "skills", "label": "Skills" },
+    { "id": "contact", "label": "Contact" }
+  ],
+  "sections": {
+    "about": { "title": "About" },
+    "experience": { "title": "Experience" },
+    "projects": { "title": "Projects" },
+    "research": {
+      "title": "Research & Achievements",
+      "papers": "Research",
+      "achievements": "Competitions & Achievements",
+      "certifications": "Certifications",
+      "leadership": "Leadership"
+    },
+    "skills": { "title": "Skills" },
+    "contact": {
+      "title": "Contact",
+      "blurb": "Email is the fastest way to reach me. I'm also on GitHub and LinkedIn."
+    }
+  },
+  "labels": {
+    "chatWithTwin": "Chat with my twin",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "resume": "Resume (PDF)",
+    "email": "Email",
+    "repo": "View code",
+    "techStack": "Tech stack",
+    "credentialId": "Credential ID",
+    "education": "Education",
+    "interests": "Interests",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "toggleTheme": "Toggle dark mode",
+    "footer": "Built with React, Vite and Tailwind CSS."
+  }
+}
