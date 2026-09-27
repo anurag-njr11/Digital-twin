@@ -1,22 +1,71 @@
 [
   {
     "group": "Languages",
-    "items": ["Python", "JavaScript", "SQL", "Bash"]
+    "items": [
+      "Python",
+      "JavaScript"
+    ]
   },
   {
     "group": "Machine Learning & Data Science",
-    "items": ["Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn", "ML Pipelines", "Classification", "Regression", "Ensemble Learning", "Feature Engineering", "SMOTE", "Data Cleaning", "Data Visualization"]
+    "items": [
+      "Scikit-learn",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "ML Pipelines",
+      "Classification",
+      "Regression",
+      "Ensemble Learning",
+      "Feature Engineering",
+      "SMOTE",
+      "Data Cleaning",
+      "Data Visualization"
+    ]
   },
   {
     "group": "AI & Agentic Systems",
-    "items": ["LangChain", "LangGraph", "Retrieval-Augmented Generation (RAG)", "Agentic AI Development", "Multi-agent Systems", "Model Context Protocol (MCP)", "Gemini API Integration", "AI Chatbot Systems", "AI-Powered Summarization", "Predictive Modeling", "Claude Code (exposure)"]
+    "items": [
+      "LangChain",
+      "LangGraph",
+      "Retrieval-Augmented Generation (RAG)",
+      "Agentic AI Development",
+      "Multi-agent Systems",
+      "Model Context Protocol (MCP)",
+      "Gemini API Integration",
+      "AI Chatbot Systems",
+      "AI-Powered Summarization",
+      "Predictive Modeling",
+      "Claude Code (exposure)"
+    ]
   },
   {
     "group": "Development & Tools",
-    "items": ["React.js", "Node.js", "Express.js", "MongoDB", "SQLite", "REST APIs", "Git", "Linux", "Postman", "VS Code", "Power BI", "Excel"]
+    "items": [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "SQLite",
+      "SQL",
+      "REST APIs",
+      "Git",
+      "Linux",
+      "Bash",
+      "Postman",
+      "VS Code",
+      "Power BI",
+      "Excel"
+    ]
   },
   {
     "group": "MLOps & Deployment",
-    "items": ["Model training", "Experimentation", "MLflow (basics)", "Monitoring concepts"]
+    "items": [
+      "Model training",
+      "Experimentation",
+      "MLflow (basics)",
+      "Monitoring concepts"
+    ]
   }
 ]

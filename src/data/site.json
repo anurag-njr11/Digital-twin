@@ -80,7 +80,9 @@
     "readPaper": "Read the full paper",
     "framework": "Framework",
     "objective": "Objective",
-    "chartTable": "Data table"
+    "chartTable": "Data table",
+    "bio": "Who I am",
+    "skillCount": "{n} skills"
   },
   "twin": {
     "title": "Ask my twin",
