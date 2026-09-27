@@ -7,7 +7,8 @@ Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different 
 
 ## Commands
 - `npm run dev`: start the local dev server
-- `npm run build`: production build (must pass before any commit)
+- `npm run build`: builds the twin's context pack, then the site (must pass before any commit)
+- `npm test`: Vitest (data checks, context pack, chat API)
 - `npm run lint`: ESLint
 - `npm run preview`: preview the production build locally
 
@@ -16,6 +17,9 @@ Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different 
 - `src/sections/`: page sections (Hero, About, Experience, Projects, Research, Contact)
 - `src/data/`: all site content as JS/JSON (projects, experience, skills, links)
 - `public/`: static assets (resume PDF, images, favicon)
+- `twin/`: the twin's persona and FAQ (every line reviewed by me)
+- `scripts/build-context.ts`: turns `src/data/` + `twin/` into `api/_context/` (generated, gitignored)
+- `api/chat.ts`: the twin's Vercel function; logic lives in `api/_lib/`
 
 ## Content rules
 - IMPORTANT: all text lives in `src/data/`. Never hardcode bio, project, or experience text inside components.

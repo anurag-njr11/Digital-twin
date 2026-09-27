@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build-context.ts && vite build",
+    "build:context": "node scripts/build-context.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run"
   },
   "dependencies": {
+    "@google/genai": "^2.24.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -25,5 +28,8 @@
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.1",
     "vitest": "^5.0.2"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

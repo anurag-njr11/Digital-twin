@@ -5,12 +5,10 @@ import { describe, expect, it } from 'vitest'
 import projects from './projects.json'
 import experience from './experience.json'
 import links from './links.json'
+import { PHONE } from '../lib/pii'
 
 const dataDir = dirname(fileURLToPath(import.meta.url))
 const jsonFiles = readdirSync(dataDir).filter((f) => f.endsWith('.json'))
-
-// Indian mobile numbers with or without +91, and any 10+ digit run.
-const PHONE = /(\+91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}|\d{10,}/
 
 describe('site data', () => {
   it.each(jsonFiles)('%s contains no phone number (R2.3)', (file) => {

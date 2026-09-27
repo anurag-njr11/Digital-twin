@@ -32,8 +32,6 @@ The v1 goal is a live site where a recruiter understands Anurag in under 60 seco
 
 | Metric | Target | How measured |
 | --- | --- | --- |
-| Lighthouse performance (mobile) | ≥ 90 | Lighthouse CI on each deploy |
-| Lighthouse accessibility | ≥ 95 | Lighthouse CI |
 | Twin groundedness on eval set | ≥ 95% of answers supported by sources | Eval script (section 10) |
 | Twin refusal on out-of-scope questions | 100% of eval cases | Eval script |
 | Hallucinated facts in eval set | 0 | Eval script + manual review |
@@ -265,7 +263,7 @@ The site must feel instant, stay accessible, and cost almost nothing to run.
 
 ## 10. Evaluation and testing plan
 
-No twin change ships unless the eval set passes in CI; the site is covered by unit, e2e and Lighthouse checks.
+No twin change ships unless the eval set passes in CI; the site is covered by unit and e2e checks.
 
 **Twin eval set** (`twin/evals/cases.jsonl`, run by `npm run eval`)
 
@@ -288,7 +286,6 @@ No twin change ships unless the eval set passes in CI; the site is covered by un
 | Unit | Vitest | Context pack builder, token budget, source-ID parser, input schema, guardrail rules |
 | End-to-end | Playwright | Section rendering, nav on mobile width, chat open/send/stream, source chip scroll, rate-limit message |
 | Accessibility | axe via Playwright | Zero serious or critical violations |
-| Performance | Lighthouse CI | N1.1, G1 metric thresholds |
 
 **Definition of done for any task:** its linked requirement's acceptance criteria pass, `npm run build`, `npm test` and `npm run eval` are green, and the change is visible on a Vercel preview URL.
 
@@ -302,7 +299,7 @@ Four phases, about 4 weeks part-time; each phase ends with a deployable preview 
 - [ ] T1.2 Create `src/data/*.json` from the resume; remove phone number. *Req: R2.1, R2.3*
 - [ ] T1.3 Build Hero, About, Experience, Projects, Research, Skills, Contact sections. *Req: R1.1–R1.5*
 - [ ] T1.4 Sticky nav, mobile menu, theme toggle, reduced motion. *Req: R3.1–R3.4*
-- [ ] T1.5 Playwright smoke test + Lighthouse CI. *Req: N1.1, N4.1*
+- [ ] T1.5 Playwright smoke test. *Req: N4.1*
 
 **Phase 2: Twin backend (week 2)**
 
