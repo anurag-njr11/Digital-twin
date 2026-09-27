@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react'
+import Background from './components/Background'
 import Navbar from './components/Navbar'
 import TwinButton from './components/TwinButton'
 import useTwinPanel from './hooks/useTwinPanel'
@@ -17,15 +18,16 @@ export default function App() {
   const twin = useTwinPanel()
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="min-h-screen font-sans text-zinc-900 antialiased dark:text-zinc-100">
+      <Background />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-teal-700 focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-blue-700 focus:px-4 focus:py-2 focus:text-white"
       >
         {site.labels.skipToContent}
       </a>
       <Navbar />
-      <main id="main" className="mx-auto max-w-4xl px-4">
+      <main id="main">
         <Hero />
         <About />
         <Experience />
@@ -34,7 +36,7 @@ export default function App() {
         <Skills />
         <Contact />
       </main>
-      <footer className="mx-auto max-w-4xl border-t border-zinc-200 px-4 py-8 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+      <footer className="mx-auto max-w-5xl border-t border-zinc-200 px-4 py-10 font-mono text-xs leading-relaxed text-zinc-500 sm:px-6 dark:border-white/10 dark:text-zinc-500">
         <p>{site.labels.footer}</p>
         {site.twinEnabled && <p className="mt-2">{site.labels.privacy}</p>}
       </footer>

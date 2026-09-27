@@ -1,8 +1,11 @@
 export default function BulletList({ items }) {
   return (
-    <ul className="mt-3 list-disc space-y-1.5 pl-5 text-zinc-700 marker:text-zinc-400 dark:text-zinc-300">
+    <ul className="mt-4 space-y-2 text-zinc-700 dark:text-zinc-300">
       {items.map((item) => (
-        <li key={item}>{item}</li>
+        <li key={item} className="flex gap-3 leading-relaxed">
+          <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-blue-500 dark:bg-neon-cyan" />
+          <span>{item}</span>
+        </li>
       ))}
     </ul>
   )

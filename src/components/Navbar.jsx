@@ -3,11 +3,24 @@ import ThemeToggle from './ThemeToggle'
 import profile from '../data/profile.json'
 import site from '../data/site.json'
 
+const initials = profile.name
+  .split(' ')
+  .map((w) => w[0])
+  .join('')
+
 const linkClass =
-  'rounded-md px-3 py-2 text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 dark:text-zinc-400 dark:hover:text-zinc-100'
+  'rounded-md px-3 py-2 text-sm text-zinc-600 transition hover:text-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-zinc-400 dark:hover:text-white'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -16,18 +29,34 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
+  const solid = scrolled || open
+
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90">
-      <nav className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4" aria-label="Main">
-        <a href="#top" className="rounded-md font-semibold text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 dark:text-zinc-100">
-          {profile.name}
+    <header
+      className={`sticky top-0 z-40 border-b transition-colors duration-300 ${
+        solid
+          ? 'border-zinc-200/80 bg-zinc-50/80 backdrop-blur-md dark:border-white/10 dark:bg-ink/70'
+          : 'border-transparent bg-transparent'
+      }`}
+    >
+      <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6" aria-label="Main">
+        <a
+          href="#top"
+          aria-label={profile.name}
+          className="rounded-md font-display text-xl font-bold text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-white"
+        >
+          {initials}
+          <span className="text-blue-600 dark:text-neon">.</span>
         </a>
 
         <div className="flex items-center gap-1">
           <ul className="hidden items-center md:flex">
             {site.nav.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className={linkClass}>
+                <a
+                  href={`#${item.id}`}
+                  className={item.id === 'twin' ? `${linkClass} font-medium text-blue-700 dark:text-neon` : linkClass}
+                >
                   {item.label}
                 </a>
               </li>
@@ -36,7 +65,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             type="button"
-            className="rounded-md p-2 text-zinc-600 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 md:hidden dark:text-zinc-400 dark:hover:bg-zinc-800"
+            className="rounded-md p-2 text-zinc-600 hover:bg-zinc-200/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 md:hidden dark:text-zinc-400 dark:hover:bg-white/10"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? site.labels.closeMenu : site.labels.openMenu}
@@ -50,7 +79,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <ul id="mobile-menu" className="border-t border-zinc-200 px-4 py-2 md:hidden dark:border-zinc-800">
+        <ul id="mobile-menu" className="border-t border-zinc-200 px-4 py-2 md:hidden dark:border-white/10">
           {site.nav.map((item) => (
             <li key={item.id}>
               <a href={`#${item.id}`} className={`block ${linkClass}`} onClick={() => setOpen(false)}>

@@ -26,6 +26,10 @@
       "blurb": "Email is the fastest way to reach me. I'm also on GitHub and LinkedIn."
     }
   },
+  "hero": {
+    "tag": "B.Tech · Atria University · Bengaluru",
+    "scrollDown": "Scroll to About"
+  },
   "labels": {
     "chatWithTwin": "Chat with my twin",
     "github": "GitHub",

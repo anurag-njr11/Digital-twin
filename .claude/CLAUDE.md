@@ -36,8 +36,8 @@ Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different 
 - Don't add new dependencies without asking first
 
 ## Design
-- Minimal and clean, mobile-first, with dark mode support
-- Readability over animation. Keep motion subtle and respect `prefers-reduced-motion`.
+- Dark neon look (near-black, blue/cyan/purple accents, glass cards; Space Grotesk / Inter / JetBrains Mono), with a light theme too. Mobile-first.
+- Motion uses GSAP through `useGsap` (src/hooks/useGsap.js): content must be readable without it, and nothing animates under `prefers-reduced-motion`.
 - Images need alt text, and the site should stay accessible with a keyboard.
 
 ## Workflow

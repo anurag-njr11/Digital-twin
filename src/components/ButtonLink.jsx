@@ -1,10 +1,11 @@
 const base =
-  'inline-flex items-center rounded-md px-4 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600'
+  'group relative inline-flex items-center justify-center overflow-hidden rounded-full px-6 py-3 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-95'
 
 const variants = {
-  primary: 'bg-teal-700 text-white hover:bg-teal-800 dark:bg-teal-500 dark:text-zinc-950 dark:hover:bg-teal-400',
+  primary:
+    'bg-blue-600 text-white shadow-[0_0_30px_rgba(37,99,235,0.35)] hover:bg-blue-500 dark:bg-neon dark:text-ink dark:hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]',
   secondary:
-    'border border-zinc-300 text-zinc-800 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800',
+    'glass text-zinc-800 hover:border-blue-500/50 hover:text-blue-700 dark:text-zinc-100 dark:hover:border-white/30 dark:hover:text-white',
 }
 
 export default function ButtonLink({ href, variant = 'secondary', external = false, children }) {
@@ -14,7 +15,10 @@ export default function ButtonLink({ href, variant = 'secondary', external = fal
       className={`${base} ${variants[variant]}`}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
-      {children}
+      {variant === 'primary' && (
+        <span aria-hidden="true" className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-full" />
+      )}
+      <span className="relative">{children}</span>
     </a>
   )
 }

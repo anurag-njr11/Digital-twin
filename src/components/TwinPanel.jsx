@@ -7,7 +7,7 @@ const t = site.twin
 const MAX_CHARS = 500
 
 const iconButton =
-  'rounded-md p-2 text-zinc-600 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 dark:text-zinc-400 dark:hover:bg-zinc-800'
+  'rounded-md p-2 text-zinc-600 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:text-zinc-400 dark:hover:bg-zinc-800'
 
 // Slide-over chat with the twin (R4.1, R4.2). Lazy-loaded on first open so it stays out of the initial bundle (N1.2).
 export default function TwinPanel({ onClose }) {
@@ -60,17 +60,17 @@ export default function TwinPanel({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-zinc-950/40" aria-hidden="true" onClick={onClose} />
+      <div className="absolute inset-0 bg-zinc-950/50 backdrop-blur-sm" aria-hidden="true" onClick={onClose} />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="twin-title"
         aria-describedby="twin-disclosure"
-        className="absolute inset-y-0 right-0 flex w-full animate-slide-in flex-col bg-white shadow-xl md:max-w-md dark:bg-zinc-900"
+        className="absolute inset-y-0 right-0 flex w-full animate-slide-in flex-col border-l border-zinc-200 bg-white/95 shadow-2xl backdrop-blur-xl md:max-w-md dark:border-white/10 dark:bg-[#07070c]/95"
       >
-        <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
-          <h2 id="twin-title" className="font-semibold text-zinc-900 dark:text-zinc-100">
+        <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-white/10">
+          <h2 id="twin-title" className="font-display text-lg font-bold text-zinc-900 dark:text-white">
             {t.title}
           </h2>
           <div className="flex items-center gap-1">
@@ -99,7 +99,7 @@ export default function TwinPanel({ onClose }) {
                   <button
                     type="button"
                     onClick={() => submit(q)}
-                    className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-left text-sm text-zinc-700 hover:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 dark:border-zinc-700 dark:text-zinc-300"
+                    className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-left text-sm text-zinc-700 hover:border-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:border-zinc-700 dark:text-zinc-300"
                   >
                     {q}
                   </button>
@@ -121,7 +121,7 @@ export default function TwinPanel({ onClose }) {
         </div>
 
         <form
-          className="border-t border-zinc-200 p-3 dark:border-zinc-800"
+          className="border-t border-zinc-200 p-3 dark:border-white/10"
           onSubmit={(e) => {
             e.preventDefault()
             submit(draft)
@@ -146,12 +146,12 @@ export default function TwinPanel({ onClose }) {
                   submit(draft)
                 }
               }}
-              className="min-h-10 flex-1 resize-none rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-500 focus-visible:outline-2 focus-visible:outline-teal-600 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
+              className="min-h-10 flex-1 resize-none rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-500 focus-visible:outline-2 focus-visible:outline-blue-600 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
             />
             <button
               type="submit"
               disabled={busy || !draft.trim()}
-              className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:opacity-50 dark:bg-teal-500 dark:text-zinc-950 dark:hover:bg-teal-400"
+              className="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-50 dark:bg-blue-500 dark:text-zinc-950 dark:hover:bg-blue-400"
             >
               {t.send}
             </button>
