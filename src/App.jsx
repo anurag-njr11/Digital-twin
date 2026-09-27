@@ -35,7 +35,8 @@ export default function App() {
         <Contact />
       </main>
       <footer className="mx-auto max-w-4xl border-t border-zinc-200 px-4 py-8 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-        {site.labels.footer}
+        <p>{site.labels.footer}</p>
+        {site.twinEnabled && <p className="mt-2">{site.labels.privacy}</p>}
       </footer>
       {site.twinEnabled && !twin.open && <TwinButton onClick={twin.show} />}
       {twin.open && (

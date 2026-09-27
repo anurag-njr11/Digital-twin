@@ -3,9 +3,19 @@
     "id": "ids-cvss-pipeline",
     "title": "Two-Stage ML Pipeline: Intrusion Detection & CVSS Severity",
     "date": "Apr 2026",
-    "stack": ["Python", "Scikit-learn", "Pandas", "XGBoost", "Random Forest", "SMOTE"],
+    "stack": [
+      "Python",
+      "Scikit-learn",
+      "Pandas",
+      "XGBoost",
+      "Random Forest",
+      "SMOTE"
+    ],
     "summary": "Detects network intrusions on the KDD99 dataset, then predicts CVSS severity from CVE data. It simulates a SOC-style workflow: detect a threat, then prioritize it.",
-    "metrics": ["~99% classification accuracy", "R² ≈ 0.98 severity prediction"],
+    "metrics": [
+      "~99% classification accuracy",
+      "R² ≈ 0.98 severity prediction"
+    ],
     "repo": null,
     "details": [
       "Two-stage pipeline: intrusion detection on KDD99, then CVSS severity prediction on CVE data.",
@@ -18,7 +28,13 @@
     "id": "symbio-nlm",
     "title": "Symbio-NLM: AI-Powered DNA Insight & Summary Platform",
     "date": null,
-    "stack": ["React.js", "Node.js", "Express.js", "MongoDB", "Gemini AI"],
+    "stack": [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Gemini AI"
+    ],
     "summary": "A genomics web app that analyzes DNA sequences and explains them in plain language. The backend does the sequence analysis; Gemini writes the summaries and powers a chat assistant.",
     "metrics": [],
     "repo": null,
@@ -27,6 +43,30 @@
       "Gemini AI APIs for sequence-specific natural-language summaries and chatbot-based genomics help.",
       "Animated AI assistant chatbot with contextual interactions, built with GSAP.",
       "REST API with JWT and bcrypt authentication."
+    ]
+  },
+  {
+    "id": "digital-twin",
+    "title": "Portfolio + AI Digital Twin",
+    "date": "Sep 2026",
+    "stack": [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Vercel Functions",
+      "Gemini API",
+      "Zod",
+      "Upstash Redis"
+    ],
+    "summary": "This site. A chat assistant answers questions about my work using only the content on this page, links each answer to the section it came from, and says so when it doesn't know.",
+    "metrics": [],
+    "repo": "https://github.com/anurag-njr11/Digital-twin",
+    "details": [
+      "The whole portfolio is built into one context pack at deploy time, with a token budget and a phone-number check that fail the build.",
+      "Answers stream over Server-Sent Events; the model cites block IDs, which the server turns into source links.",
+      "Guardrails: input rules for off-topic and prompt-injection questions, an output check that stops phone numbers and prompt leaks mid-stream, and Gemini safety filters.",
+      "Rate limiting with hashed IPs, a daily cap, and anonymous question logs that expire after 90 days.",
+      "A 70-case eval set (facts, multi-hop, unknowns, out-of-scope, prompt injection, PII) runs against every deployment."
     ]
   }
 ]

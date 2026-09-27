@@ -10,6 +10,8 @@ Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different 
 - `npm run build`: builds the twin's context pack, then the site (must pass before any commit)
 - `npm test`: Vitest (data checks, context pack, chat API)
 - `npm run lint`: ESLint
+- `npm run eval -- --url <deployment>`: run the 70 twin eval cases, writes `twin/evals/report.md`
+- `npm run logs -- [days]`: summarize anonymous twin questions from Upstash
 - `npm run preview`: preview the production build locally
 
 ## Structure
@@ -42,6 +44,10 @@ Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different 
 - Small, focused changes. Explain what changed and why.
 - After UI changes, run `npm run build` and check the page on both mobile and desktop widths.
 - Commit messages: short and in the imperative, e.g. `add projects section`
+
+## Hooks
+- `.claude/hooks/check-content.mjs`: after edits to `src/data/` or `twin/`, rebuilds the context pack (token budget, phone check)
+- `.claude/hooks/pre-commit.mjs`: blocks `git commit` unless `npm test` and `npm run build` pass
 
 ## Gotchas
 - The resume PDF in `public/` must match the content in `src/data/`. Flag it if they drift apart.

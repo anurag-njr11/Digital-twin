@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { DEFAULT_MODEL, GeminiProvider } from './_lib/gemini'
 import { createChatHandler } from './_lib/handler'
 import { createLimiter } from './_lib/limits'
+import { createLogger } from './_lib/logs'
 import { createRedis } from './_lib/upstash'
 
 // Built by scripts/build-context.ts and bundled with this function via vercel.json.
@@ -27,6 +28,7 @@ function getHandler() {
     replies: JSON.parse(read('replies.json')),
     links: JSON.parse(read('links.json')),
     limiter: redis && salt ? createLimiter(redis, salt) : undefined,
+    logger: redis ? createLogger(redis) : undefined,
     evalToken: process.env.EVAL_TOKEN,
   })
   return handler

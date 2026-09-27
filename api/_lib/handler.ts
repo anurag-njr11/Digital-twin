@@ -1,6 +1,7 @@
 import { AnswerFilter } from './answer'
 import { checkInput, isUnsafeOutput, type RefusalReason } from './guardrails'
 import { clientIp, type Limiter } from './limits'
+import type { LogEntry, Logger } from './logs'
 import { buildSystemPrompt, recentHistory } from './prompt'
 import type { ModelChunk, ModelProvider } from './provider'
 import { ChatRequest } from './schema'
@@ -16,6 +17,7 @@ export type ChatDeps = {
   replies: Record<string, string>
   links: Links
   limiter?: Limiter
+  logger?: Logger
   // Requests carrying this token in x-eval-token skip the rate limit (npm run eval).
   evalToken?: string
   now?: () => number
@@ -69,13 +71,19 @@ export function createChatHandler(deps: ChatDeps) {
     if (!parsed.success) return jsonError(400, 'bad_request')
 
     const messages = recentHistory(parsed.data.messages)
-    const refuse = (controller: ReadableStreamDefaultController, reason: RefusalReason, reply: string = reason) => {
+    const question = messages.at(-1)!.content
+    // Eval traffic stays out of the visitor logs.
+    const log = (entry: Omit<LogEntry, 'question' | 'latencyMs'>) =>
+      isEval || !deps.logger ? undefined : deps.logger.log({ question, latencyMs: now() - started, ...entry })
+
+    const refuse = async (controller: ReadableStreamDefaultController, reason: RefusalReason, reply: string = reason) => {
       controller.enqueue(sse('refusal', { reason, message: deps.replies[reply] }))
       controller.enqueue(sse('done', { latencyMs: now() - started }))
+      await log({ topic: reason, outcome: 'refused' })
       controller.close()
     }
 
-    const verdict = checkInput(messages.at(-1)!.content)
+    const verdict = checkInput(question)
     if (verdict) {
       return new Response(new ReadableStream({ start: (c) => refuse(c, verdict.reason, verdict.reply) }), {
         headers: SSE_HEADERS,
@@ -94,7 +102,10 @@ export function createChatHandler(deps: ChatDeps) {
         console.error('chat: upstream failed', err)
       }
     }
-    if (!iterator || !first) return jsonError(502, 'upstream')
+    if (!iterator || !first) {
+      await log({ topic: 'error', outcome: 'error' })
+      return jsonError(502, 'upstream')
+    }
     const upstream = iterator
     const firstResult = first
 
@@ -117,12 +128,15 @@ export function createChatHandler(deps: ChatDeps) {
           const end = filter.finish()
           if ('refuse' in end) return refuse(controller, end.refuse)
           if (end.text) controller.enqueue(sse('token', { text: end.text }))
-          controller.enqueue(sse('sources', toSources(end.sourceIds)))
+          const sources = toSources(end.sourceIds)
+          controller.enqueue(sse('sources', sources))
           controller.enqueue(sse('done', { latencyMs: now() - started }))
+          await log({ topic: sources[0]?.section ?? 'general', outcome: 'answered' })
           controller.close()
         } catch (err) {
           console.error('chat: stream failed', err)
           controller.enqueue(sse('error', { code: 'upstream' }))
+          await log({ topic: 'error', outcome: 'error' })
           controller.close()
         }
       },

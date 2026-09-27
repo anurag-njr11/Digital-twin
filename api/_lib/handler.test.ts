@@ -148,3 +148,44 @@ describe('limits', () => {
     expect((await limited('rate_limited')(req)).status).toBe(200)
   })
 })
+
+describe('logging (R9)', () => {
+  function logged(provider: ModelProvider, evalToken?: string) {
+    const entries: unknown[] = []
+    const h = createChatHandler({
+      provider,
+      persona: 'P',
+      context: 'C',
+      anchors,
+      replies,
+      links,
+      logger: { log: async (e) => void entries.push(e) },
+      evalToken,
+      now: () => 0,
+    })
+    return { h, entries }
+  }
+
+  it('logs answered questions with topic and latency, and nothing that identifies the visitor', async () => {
+    const { h, entries } = logged(fakeProvider([[text('Yes.\nSOURCES: proj:ids')]]))
+    await (await h(ask('Tell me about the IDS project'))).text()
+    expect(entries).toEqual([{ question: 'Tell me about the IDS project', topic: 'Projects', latencyMs: 0, outcome: 'answered' }])
+  })
+
+  it('logs refusals with their reason', async () => {
+    const { h, entries } = logged(fakeProvider([]))
+    await (await h(ask('What salary do you expect?'))).text()
+    expect(entries).toEqual([expect.objectContaining({ topic: 'out_of_scope', outcome: 'refused' })])
+  })
+
+  it('keeps eval traffic out of the logs', async () => {
+    const { h, entries } = logged(fakeProvider([[text('ok')]]), 'secret')
+    const req = new Request('http://localhost/api/chat', {
+      method: 'POST',
+      headers: { 'x-eval-token': 'secret' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: 'Hello' }] }),
+    })
+    await (await h(req)).text()
+    expect(entries).toEqual([])
+  })
+})

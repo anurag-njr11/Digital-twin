@@ -9,7 +9,9 @@
     "build:context": "node scripts/build-context.ts",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "logs": "node --env-file-if-exists=.env scripts/twin-logs.ts",
+    "eval": "node --env-file-if-exists=.env scripts/eval.ts"
   },
   "dependencies": {
     "@google/genai": "^2.24.0",

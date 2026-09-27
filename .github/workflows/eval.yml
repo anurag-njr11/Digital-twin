@@ -1,0 +1,30 @@
+# Runs the twin eval against each successful Vercel deployment (spec §10).
+# A failing gate marks the deployment's commit red, so a twin change doesn't ship unnoticed.
+name: Twin eval
+on:
+  deployment_status:
+
+jobs:
+  eval:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build:context
+      - run: npm run eval -- --url "${{ github.event.deployment_status.environment_url }}"
+        env:
+          EVAL_TOKEN: ${{ secrets.EVAL_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-report
+          path: twin/evals/report.md
