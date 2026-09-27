@@ -1,7 +1,6 @@
 import { Suspense, lazy } from 'react'
 import Background from './components/Background'
 import Highlights from './components/Highlights'
-import Marquee from './components/Marquee'
 import Navbar from './components/Navbar'
 import TwinCta from './components/TwinCta'
 import TwinButton from './components/TwinButton'
@@ -35,7 +34,6 @@ export default function App() {
       <main id="main">
         <Hero />
         <Highlights />
-        <Marquee />
         <About />
         <Experience />
         <Projects />

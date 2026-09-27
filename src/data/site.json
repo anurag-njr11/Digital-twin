@@ -111,25 +111,6 @@
       "network": "Couldn't reach the server. Check your connection and try again."
     }
   },
-  "highlights": [
-    {
-      "value": "~99%",
-      "label": "Intrusion detection accuracy"
-    },
-    {
-      "value": "R² ≈ 0.98",
-      "label": "CVSS severity prediction"
-    },
-    {
-      "value": "Top 10",
-      "label": "India Sustainability Startathon"
-    },
-    {
-      "value": "2028",
-      "label": "B.Tech, Atria University",
-      "count": false
-    }
-  ],
   "twinCta": {
     "eyebrow": "Ask my AI twin",
     "title": "Questions about my work? Ask the twin.",

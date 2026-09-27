@@ -1,59 +1,40 @@
 import { useRef } from 'react'
 import useGsap from '../hooks/useGsap'
-import site from '../data/site.json'
+import research from '../data/research.json'
 
-// Splits "R² ≈ 0.98" into prefix, number, suffix so only the number counts up.
-function parts(value) {
-  const m = /^(.*?)(\d+(?:\.\d+)?)(.*)$/.exec(value)
-  return m ? { pre: m[1], num: Number(m[2]), decimals: (m[2].split('.')[1] ?? '').length, post: m[3] } : null
-}
-
-// Strip of headline numbers under the hero. The final value is always in the DOM; with motion
-// allowed, the number counts up from zero when the strip scrolls into view.
+// Achievement headlines under the hero, taken from the same records as the Research section.
 export default function Highlights() {
   const ref = useRef(null)
 
   useGsap(ref, (gsap) => {
-    for (const el of gsap.utils.toArray('[data-count]', ref.current)) {
-      const p = parts(el.dataset.count)
-      const counter = { v: 0 }
-      gsap.to(counter, {
-        v: p.num,
-        duration: 1.6,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
-        onUpdate: () => (el.textContent = `${p.pre}${counter.v.toFixed(p.decimals)}${p.post}`),
-      })
-    }
     gsap.from('[data-highlight]', {
       y: 30,
       autoAlpha: 0,
       duration: 0.8,
-      stagger: 0.1,
+      stagger: 0.12,
       ease: 'power3.out',
-      scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+      scrollTrigger: { trigger: ref.current, start: 'top 90%', once: true },
     })
   })
 
   return (
-    <section aria-label="Highlights" className="mx-auto max-w-7xl px-4 sm:px-6">
-      <dl ref={ref} className="glass grid grid-cols-2 overflow-hidden rounded-2xl lg:grid-cols-4">
-        {site.highlights.map((h, i) => (
-          <div
-            key={h.label}
+    <section aria-label="Achievements" className="mx-auto max-w-7xl px-4 pb-10 sm:px-6">
+      <ul ref={ref} className="glass grid overflow-hidden rounded-2xl md:grid-cols-3">
+        {research.achievements.map((a, i) => (
+          <li
+            key={a.id}
             data-highlight
-            className={`p-6 sm:p-8 ${i % 2 ? '' : 'border-r'} ${i < 2 ? 'border-b lg:border-b-0' : ''} ${i === 1 ? 'lg:border-r' : ''} border-zinc-200/80 dark:border-white/[0.07]`}
+            className={`p-6 sm:p-8 ${i ? 'border-t md:border-t-0 md:border-l' : ''} border-zinc-200/80 dark:border-white/[0.07]`}
           >
-            <dd
-              data-count={h.count === false || !parts(h.value) ? undefined : h.value}
-              className="text-gradient font-display text-3xl font-bold tracking-tight tabular-nums sm:text-5xl"
-            >
-              {h.value}
-            </dd>
-            <dt className="mt-2 font-mono text-[11px] tracking-[0.15em] text-zinc-500 uppercase dark:text-zinc-400">{h.label}</dt>
-          </div>
+            <a href="#research" className="group block rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500">
+              <p className="text-gradient font-display text-3xl font-bold tracking-tight sm:text-4xl">{a.highlight}</p>
+              <p className="mt-2 font-mono text-[11px] tracking-[0.15em] text-zinc-500 uppercase transition group-hover:text-amber-600 dark:text-zinc-400 dark:group-hover:text-amber-300">
+                {a.title}
+              </p>
+            </a>
+          </li>
         ))}
-      </dl>
+      </ul>
     </section>
   )
 }
