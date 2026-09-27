@@ -3,6 +3,8 @@ import type { ModelChunk, ModelProvider, ModelRequest } from './provider'
 
 // "latest" alias tracks Google's current Flash model; pin a version with GEMINI_MODEL if it changes behaviour.
 export const DEFAULT_MODEL = 'gemini-flash-latest'
+// Tried when the main model is overloaded (503) or errors before streaming starts.
+export const FALLBACK_MODEL = 'gemini-2.5-flash'
 
 // Tools take no input, so one round is enough; the cap stops a model that keeps calling them.
 const MAX_TOOL_ROUNDS = 2
@@ -23,11 +25,23 @@ const SAFETY_SETTINGS = [
 
 export class GeminiProvider implements ModelProvider {
   private ai: GoogleGenAI
-  private model: string
+  private models: string[]
 
-  constructor(apiKey: string, model = DEFAULT_MODEL) {
+  constructor(apiKey: string, model = DEFAULT_MODEL, fallback = FALLBACK_MODEL) {
     this.ai = new GoogleGenAI({ apiKey })
-    this.model = model
+    this.models = [...new Set([model, fallback])]
+  }
+
+  private async open(contents: Content[], config: object) {
+    let lastError: unknown
+    for (const model of this.models) {
+      try {
+        return await this.ai.models.generateContentStream({ model, contents, config })
+      } catch (err) {
+        lastError = err
+      }
+    }
+    throw lastError
   }
 
   async *stream({ system, messages, tools }: ModelRequest): AsyncIterable<ModelChunk> {
@@ -38,12 +52,14 @@ export class GeminiProvider implements ModelProvider {
     const config = {
       systemInstruction: system,
       safetySettings: SAFETY_SETTINGS,
-      maxOutputTokens: 600,
+      maxOutputTokens: 800,
+      // Thinking burned most of the output budget (and ~5s) on answers that only restate the pack.
+      thinkingConfig: { thinkingBudget: 0 },
       tools: tools.length ? [{ functionDeclarations: tools.map(({ name, description }) => ({ name, description })) }] : undefined,
     }
 
     for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
-      const response = await this.ai.models.generateContentStream({ model: this.model, contents, config })
+      const response = await this.open(contents, config)
       // Keep every part the model sent (including thought signatures) so a tool round can be replayed.
       const modelParts: Part[] = []
       const calls: { id?: string; name: string }[] = []
