@@ -186,29 +186,41 @@
       ],
       "chart": {
         "id": "bases",
-        "kind": "bars",
+        "kind": "grouped",
         "title": "Base distribution",
         "unit": "%",
         "max": 40,
+        "decimals": 1,
+        "height": 230,
+        "series": [
+          "Share of bases"
+        ],
         "data": [
           {
             "label": "A",
-            "value": 24
+            "values": [
+              24
+            ]
           },
           {
             "label": "T",
-            "value": 22.8
+            "values": [
+              22.8
+            ]
           },
           {
             "label": "G",
-            "value": 30.4
+            "values": [
+              30.4
+            ]
           },
           {
             "label": "C",
-            "value": 22.8
+            "values": [
+              22.8
+            ]
           }
-        ],
-        "decimals": 1
+        ]
       }
     }
   }

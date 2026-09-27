@@ -4,20 +4,25 @@ import SubHeading from './SubHeading'
 import Tag from './Tag'
 import site from '../data/site.json'
 
+const tile = 'h-full rounded-xl border border-zinc-200/80 bg-white/50 p-5 sm:p-6 dark:border-white/[0.07] dark:bg-white/[0.02]'
+
 function Chart({ chart }) {
   return chart.kind === 'grouped' ? <GroupedBarChart chart={chart} /> : <BarChart chart={chart} />
 }
 
-// Full-width project feature: story and pipeline on the left, evidence (charts or a sample run) on the right.
+// Bento layout: every row's tiles stretch to the same height, so nothing leaves a gap.
+// Desktop (12 cols): overview 7 + pipeline 5, then charts 4 + 4 + 4 or sample stats 4 + chart 8.
+// Tablet (2 cols): overview and pipeline full width, charts two per row with an odd last one full width.
 export default function ProjectCard({ project, index }) {
   const { sample, charts = [], pipeline = [] } = project
+  const oddLast = (i) => charts.length % 2 === 1 && i === charts.length - 1
 
   return (
-    <article data-reveal className="glass relative overflow-hidden rounded-2xl p-6 sm:p-8">
+    <article data-reveal className="glass relative overflow-hidden rounded-2xl p-4 sm:p-5">
       <div aria-hidden="true" className="absolute -top-32 -right-32 size-72 rounded-full bg-blue-500/10 blur-3xl" />
 
-      <div className="relative grid gap-8 lg:grid-cols-2">
-        <div>
+      <div className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-12">
+        <div className={`${tile} flex flex-col md:col-span-2 lg:col-span-7`}>
           <div className="flex items-baseline justify-between gap-3 font-mono text-xs text-zinc-500 dark:text-zinc-400">
             <span className="text-blue-700 dark:text-neon">{String(index + 1).padStart(2, '0')}</span>
             {project.date && <span>{project.date}</span>}
@@ -38,62 +43,70 @@ export default function ProjectCard({ project, index }) {
             </ul>
           )}
 
-          {pipeline.length > 0 && (
-            <div className="mt-6">
-              <SubHeading>{site.labels.pipeline}</SubHeading>
-              <ol className="mt-3 space-y-3">
-                {pipeline.map((step, i) => (
-                  <li key={step.title} className="flex gap-3">
-                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-blue-500/40 font-mono text-[11px] text-blue-700 dark:text-neon">
-                      {i + 1}
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-zinc-900 dark:text-white">{step.title}</p>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">{step.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
-
-          <ul className="mt-6 flex flex-wrap gap-1.5" aria-label={site.labels.techStack}>
+          <ul className="mt-5 flex flex-wrap gap-1.5" aria-label={site.labels.techStack}>
             {project.stack.map((s) => (
               <Tag key={s}>{s}</Tag>
             ))}
           </ul>
 
           {project.repo && (
-            <a
-              href={project.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex rounded-full border border-blue-500/40 px-5 py-2 font-mono text-sm font-medium text-blue-700 transition hover:bg-blue-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-neon"
-            >
-              {site.labels.repo} →<span className="sr-only">: {project.title}</span>
-            </a>
+            <div className="mt-auto pt-6">
+              <a
+                href={project.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-full border border-blue-500/40 px-5 py-2 font-mono text-sm font-medium text-blue-700 transition hover:bg-blue-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-neon"
+              >
+                {site.labels.repo} →<span className="sr-only">: {project.title}</span>
+              </a>
+            </div>
           )}
         </div>
 
-        <div className="space-y-4">
-          {sample && (
-            <div className="space-y-4">
+        {pipeline.length > 0 && (
+          <div className={`${tile} flex flex-col md:col-span-2 lg:col-span-5`}>
+            <SubHeading>{site.labels.pipeline}</SubHeading>
+            <ol className="relative mt-5 flex flex-1 flex-col justify-between gap-5">
+              <span aria-hidden="true" className="absolute top-3 bottom-3 left-[13px] w-px bg-linear-to-b from-blue-500/60 via-violet-500/60 to-cyan-400/60" />
+              {pipeline.map((step, i) => (
+                <li key={step.title} className="relative flex gap-4">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-blue-500/50 bg-slate-50 font-mono text-xs text-blue-700 dark:bg-ink dark:text-neon">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-zinc-900 dark:text-white">{step.title}</p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{step.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+
+        {charts.map((c, i) => (
+          <div key={c.id} className={oddLast(i) ? 'md:col-span-2 lg:col-span-4' : 'lg:col-span-4'}>
+            <Chart chart={c} />
+          </div>
+        ))}
+
+        {sample && (
+          <>
+            <div className={`${tile} flex flex-col md:col-span-2 lg:col-span-4`}>
               <SubHeading>{sample.title}</SubHeading>
-              <dl className="grid grid-cols-3 gap-3">
+              <dl className="mt-4 grid flex-1 grid-cols-3 gap-3 lg:grid-cols-1">
                 {sample.stats.map((s) => (
-                  <div key={s.label} className="rounded-xl border border-zinc-200 bg-white/60 p-3 dark:border-white/10 dark:bg-white/5">
+                  <div key={s.label} className="flex flex-col justify-center rounded-lg border border-zinc-200 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5">
                     <dt className="font-mono text-[10px] tracking-wider text-zinc-500 uppercase dark:text-zinc-400">{s.label}</dt>
-                    <dd className="mt-1 font-mono text-sm font-semibold text-zinc-900 dark:text-white">{s.value}</dd>
+                    <dd className="mt-1 font-mono text-lg font-semibold text-zinc-900 dark:text-white">{s.value}</dd>
                   </div>
                 ))}
               </dl>
+            </div>
+            <div className="md:col-span-2 lg:col-span-8">
               <Chart chart={sample.chart} />
             </div>
-          )}
-          {charts.map((c) => (
-            <Chart key={c.id} chart={c} />
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </article>
   )

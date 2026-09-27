@@ -33,6 +33,9 @@ const list = (items: string[]) => items.map((b) => `- ${b}`).join('\n')
 // Charts go into the pack as plain numbers so the twin can answer questions about them.
 function renderChart(c: Json): string {
   const fmt = (v: number) => `${c.decimals === undefined ? v : v.toFixed(c.decimals)}${c.unit}`
+  if (c.kind === 'grouped' && c.series.length === 1) {
+    return `${c.title}: ${c.data.map((d: Json) => `${d.label} ${fmt(d.values[0])}`).join(', ')}.`
+  }
   if (c.kind === 'grouped') {
     return `${c.title}: ${c.data.map((d: Json) => `${d.label} ${d.values.map((v: number, i: number) => `${c.series[i]} ${fmt(v)}`).join(' / ')}`).join('; ')}.`
   }

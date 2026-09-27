@@ -1,12 +1,13 @@
 import ChartFigure from './ChartFigure'
 import { barPath, formatValue } from '../lib/chart'
+import useElementWidth from '../hooks/useElementWidth'
 
-const W = 320
 const ROW = 30
 const BAR = 14
 
 // Single-series horizontal bars: one hue, value labels at the bar ends, native tooltip per row.
 export default function BarChart({ chart }) {
+  const [ref, W] = useElementWidth()
   const { title, unit, max, data, decimals } = chart
   const height = data.length * ROW
   const fmt = (v) => formatValue(v, unit, decimals)
@@ -16,7 +17,7 @@ export default function BarChart({ chart }) {
 
   return (
     <ChartFigure title={title} columns={['', title]} rows={data.map((d) => [d.label, fmt(d.value)])}>
-      <svg viewBox={`0 0 ${W} ${height}`} className="w-full overflow-visible">
+      <svg ref={ref} viewBox={`0 0 ${W} ${height}`} className="w-full overflow-visible">
         {data.map((d, i) => {
           const y = i * ROW
           const w = Math.max((d.value / max) * TRACK, 2)
