@@ -20,8 +20,9 @@
   }
 }
 
-/* Frosted card used across sections. */
+/* Frosted card used across sections. --mx/--my are set by useSpotlight for a cursor glow. */
 @utility glass {
+  background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgb(59 130 246 / 0.08), transparent 45%);
   border: 1px solid rgb(15 23 42 / 0.08);
   background-color: rgb(255 255 255 / 0.72);
   backdrop-filter: blur(14px);
@@ -40,6 +41,12 @@
   color: transparent;
   &:where(.dark, .dark *) {
     background-image: linear-gradient(to right, #ffffff, #dbeafe, #22d3ee);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 

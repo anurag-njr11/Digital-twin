@@ -110,5 +110,29 @@
       "bad_request": "That message couldn't be sent. Keep it under 500 characters and try again.",
       "network": "Couldn't reach the server. Check your connection and try again."
     }
+  },
+  "highlights": [
+    {
+      "value": "~99%",
+      "label": "Intrusion detection accuracy"
+    },
+    {
+      "value": "R² ≈ 0.98",
+      "label": "CVSS severity prediction"
+    },
+    {
+      "value": "Top 10",
+      "label": "India Sustainability Startathon"
+    },
+    {
+      "value": "2028",
+      "label": "B.Tech, Atria University",
+      "count": false
+    }
+  ],
+  "twinCta": {
+    "eyebrow": "Ask my AI twin",
+    "title": "Questions about my work? Ask the twin.",
+    "text": "It answers from the content on this page only, links each answer to the section it came from, and tells you when it doesn't know."
   }
 }

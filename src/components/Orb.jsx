@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-// Aurora stops along the knot: blue -> violet -> cyan -> blue.
+// Aurora stops: blue -> violet -> cyan -> blue.
 const STOPS = [
   [59, 130, 246],
   [139, 92, 246],
@@ -8,49 +8,67 @@ const STOPS = [
   [59, 130, 246],
 ]
 
-function mix(t) {
-  const x = t * (STOPS.length - 1)
+function aurora(t) {
+  const x = (((t % 1) + 1) % 1) * (STOPS.length - 1)
   const i = Math.min(Math.floor(x), STOPS.length - 2)
   const f = x - i
   return STOPS[i].map((c, k) => Math.round(c + (STOPS[i + 1][k] - c) * f))
 }
 
-// Points on the surface of a (2,3) torus knot tube, computed once.
-function buildKnot(segments, rings) {
-  const pts = []
-  const curve = (t) => {
-    const r = 2 + Math.cos(3 * t)
-    return [r * Math.cos(2 * t), r * Math.sin(2 * t), Math.sin(3 * t)]
-  }
-  for (let i = 0; i < segments; i++) {
-    const t = (i / segments) * Math.PI * 2
-    const p = curve(t)
-    const q = curve(t + 0.01)
-    // Tangent and a stable normal frame for the tube.
-    const T = q.map((v, k) => v - p[k])
-    const tl = Math.hypot(...T)
-    const tn = T.map((v) => v / tl)
-    let n = [tn[1], -tn[0], 0]
-    const nl = Math.hypot(...n) || 1
-    n = n.map((v) => v / nl)
-    const b = [tn[1] * n[2] - tn[2] * n[1], tn[2] * n[0] - tn[0] * n[2], tn[0] * n[1] - tn[1] * n[0]]
-    const color = mix(i / segments)
-    for (let j = 0; j < rings; j++) {
-      const a = (j / rings) * Math.PI * 2
-      const r = 0.42
-      pts.push({
-        x: (p[0] + r * (Math.cos(a) * n[0] + Math.sin(a) * b[0])) / 3.4,
-        y: (p[1] + r * (Math.cos(a) * n[1] + Math.sin(a) * b[1])) / 3.4,
-        z: (p[2] + r * (Math.cos(a) * n[2] + Math.sin(a) * b[2])) / 3.4,
-        c: color,
-      })
+// Five shapes with the same point count, all roughly unit-sized. Consecutive points sit next to
+// each other in every shape, so linking i -> i+1 draws clean filaments.
+const SHAPES = [
+  // Spiral (Fibonacci) sphere.
+  (i, n) => {
+    const y = 1 - (2 * i) / (n - 1)
+    const r = Math.sqrt(1 - y * y)
+    const a = i * 2.399963
+    return [Math.cos(a) * r, y, Math.sin(a) * r]
+  },
+  // (2,3) torus knot.
+  (i, n) => {
+    const t = (i / n) * Math.PI * 2 * 3
+    const turn = (i % 3) * 0.12
+    const r = 2 + Math.cos(3 * t) + turn
+    return [(r * Math.cos(2 * t)) / 3.2, (r * Math.sin(2 * t)) / 3.2, Math.sin(3 * t) / 3.2]
+  },
+  // DNA double helix: two strands plus rungs.
+  (i, n) => {
+    const strand = i % 3
+    const k = Math.floor(i / 3) / (n / 3)
+    const a = k * Math.PI * 6
+    const y = (k - 0.5) * 2.2
+    if (strand === 2) {
+      const f = ((i * 7) % 11) / 10 - 0.5
+      return [Math.cos(a) * 0.55 * f * 2, y, Math.sin(a) * 0.55 * f * 2]
     }
-  }
-  return pts
-}
+    const off = strand ? Math.PI : 0
+    return [Math.cos(a + off) * 0.55, y, Math.sin(a + off) * 0.55]
+  },
+  // Ring (torus).
+  (i, n) => {
+    const u = (i / n) * Math.PI * 2 * 24
+    const v = (i / n) * Math.PI * 2
+    return [(1 + 0.28 * Math.cos(u)) * Math.cos(v), 0.28 * Math.sin(u), (1 + 0.28 * Math.cos(u)) * Math.sin(v)]
+  },
+  // Wave field (animated in the loop).
+  (i, n) => {
+    const side = Math.ceil(Math.sqrt(n))
+    const gx = (i % side) / (side - 1) - 0.5
+    const gz = Math.floor(i / side) / (side - 1) - 0.5
+    return [gx * 2.4, 0, gz * 2.4]
+  },
+]
 
-// A slowly turning 3D knot behind the page. It drifts side to side with scroll progress and
-// leans toward the pointer. One still frame with reduced motion; paused in hidden tabs.
+const smooth = (x) => x * x * (3 - 2 * x)
+
+// 256-step colour lookup ("rgba(r, g, b, ") so the draw loop doesn't allocate per point.
+const LUT = Array.from({ length: 256 }, (_, i) => `rgba(${aurora(i / 256).join(', ')}, `)
+const colorAt = (t) => LUT[Math.floor((((t % 1) + 1) % 1) * 255)]
+
+// A living particle form behind the page. It turns, breathes and shimmers constantly, and morphs
+// from sphere -> knot -> DNA helix -> ring -> wave as the page scrolls. It leans toward the
+// pointer and spins faster while scrolling. One still frame with reduced motion; pauses when hidden.
 export default function Orb() {
   const ref = useRef(null)
 
@@ -59,8 +77,11 @@ export default function Orb() {
     const ctx = canvas.getContext('2d')
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const small = window.innerWidth < 768
-    const pts = buildKnot(small ? 120 : 220, small ? 6 : 9)
-    const state = { rot: 0.6, progress: 0, tiltX: 0, tiltY: 0, mx: 0, my: 0 }
+    const n = small ? 900 : 1800
+    const targets = SHAPES.map((shape) => Array.from({ length: n }, (_, i) => shape(i, n)))
+    const phase = Array.from({ length: n }, (_, i) => (i * 12.9898) % (Math.PI * 2))
+    const proj = new Float32Array(n * 3)
+    const s = { t: 0, rot: 0.4, spin: 0, progress: 0, lastY: window.scrollY, tiltX: 0, tiltY: 0, mx: 0, my: 0 }
     let w = 0
     let h = 0
     let frame = 0
@@ -79,32 +100,86 @@ export default function Orb() {
       const dark = document.documentElement.classList.contains('dark')
       const max = document.documentElement.scrollHeight - h
       const target = max > 0 ? window.scrollY / max : 0
-      state.progress += (target - state.progress) * 0.06
-      state.tiltX += (state.my * 0.35 - state.tiltX) * 0.05
-      state.tiltY += (state.mx * 0.35 - state.tiltY) * 0.05
-      if (!still) state.rot += 0.0035
+      s.progress += (target - s.progress) * 0.05
+      // Scrolling adds a burst of spin that eases off.
+      s.spin += (Math.min(Math.abs(window.scrollY - s.lastY), 80) * 0.0006 - s.spin) * 0.08
+      s.lastY = window.scrollY
+      s.tiltX += (s.my * 0.5 - s.tiltX) * 0.05
+      s.tiltY += (s.mx * 0.6 - s.tiltY) * 0.05
+      if (!still) {
+        s.t += 0.016
+        s.rot += 0.006 + s.spin
+      }
 
-      // Starts on the right in the hero, swings left and back as the story scrolls on.
-      const cx = w * (small ? 0.5 : 0.5 + 0.26 * Math.cos(state.progress * Math.PI * 3))
-      const cy = h * (small ? 0.42 : 0.52)
-      const R = Math.min(w, h) * (small ? 0.42 : 0.36)
-      const ay = state.rot + state.progress * Math.PI * 2 + state.tiltY
-      const ax = 0.5 + Math.sin(state.rot * 0.7) * 0.25 + state.tiltX
+      // Which two shapes to blend, and how far.
+      const pos = s.progress * (SHAPES.length - 1)
+      const a = Math.min(Math.floor(pos), SHAPES.length - 2)
+      const f = smooth(Math.min(Math.max(pos - a, 0), 1))
+      const A = targets[a]
+      const B = targets[a + 1]
+
+      const cx = w * (small ? 0.5 : 0.5 + 0.24 * Math.cos(s.progress * Math.PI * 3))
+      const cy = h * (small ? 0.4 : 0.5)
+      const R = Math.min(w, h) * (small ? 0.34 : 0.3) * (1 + Math.sin(s.t * 0.8) * 0.04)
+      const ay = s.rot + s.tiltY
+      // Tip the wave field toward the viewer so it isn't seen edge-on.
+      const waveTilt = a + 1 === SHAPES.length - 1 ? f * 0.55 : 0
+      const ax = 0.35 + waveTilt + Math.sin(s.t * 0.3) * 0.25 + s.tiltX
       const [sy, cyr, sx, cxr] = [Math.sin(ay), Math.cos(ay), Math.sin(ax), Math.cos(ax)]
-      const k = dark ? 1 : 0.55
+      const k = dark ? 1 : 0.6
+      const hueShift = s.t * 0.03
+
+      // Project every point once.
+      for (let i = 0; i < n; i++) {
+        const p = A[i]
+        const q = B[i]
+        let x = p[0] + (q[0] - p[0]) * f
+        let y = p[1] + (q[1] - p[1]) * f
+        let z = p[2] + (q[2] - p[2]) * f
+        // Wave field ripples; every shape breathes a little.
+        if (a + 1 === SHAPES.length - 1) y += Math.sin(q[0] * 4 + s.t * 1.6) * Math.cos(q[2] * 4 + s.t * 1.2) * 0.22 * f
+        const wob = 1 + Math.sin(s.t * 1.7 + phase[i]) * 0.035
+        x *= wob
+        y *= wob
+        z *= wob
+        const x1 = x * cyr + z * sy
+        const z1 = -x * sy + z * cyr
+        const y2 = y * cxr - z1 * sx
+        const z2 = y * sx + z1 * cxr
+        const persp = 1.6 / (2.2 - z2)
+        proj[i * 3] = cx + x1 * R * persp
+        proj[i * 3 + 1] = cy + y2 * R * persp
+        proj[i * 3 + 2] = (z2 + 1.2) / 2.4 // depth 0 far .. 1 near
+      }
 
       ctx.clearRect(0, 0, w, h)
       ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over'
-      for (const p of pts) {
-        const x1 = p.x * cyr + p.z * sy
-        const z1 = -p.x * sy + p.z * cyr
-        const y2 = p.y * cxr - z1 * sx
-        const z2 = p.y * sx + z1 * cxr
-        const depth = (z2 + 1) / 2 // 0 far .. 1 near
-        const persp = 1 / (1.9 - z2 * 0.6)
-        ctx.fillStyle = `rgba(${p.c[0]}, ${p.c[1]}, ${p.c[2]}, ${(0.12 + depth * 0.55) * k})`
+
+      // Filaments between neighbours.
+      ctx.lineWidth = 0.6
+      const linkMax = R * 0.16
+      for (let i = 1; i < n; i++) {
+        const x0 = proj[(i - 1) * 3]
+        const y0 = proj[(i - 1) * 3 + 1]
+        const x1 = proj[i * 3]
+        const y1 = proj[i * 3 + 1]
+        const d = Math.hypot(x1 - x0, y1 - y0)
+        if (d > linkMax) continue
+        const depth = proj[i * 3 + 2]
+        ctx.strokeStyle = `${colorAt(i / n + hueShift)}${(0.05 + depth * 0.22) * (1 - d / linkMax) * k})`
         ctx.beginPath()
-        ctx.arc(cx + x1 * R * persp * 1.6, cy + y2 * R * persp * 1.6, 0.5 + depth * 1.6, 0, Math.PI * 2)
+        ctx.moveTo(x0, y0)
+        ctx.lineTo(x1, y1)
+        ctx.stroke()
+      }
+
+      // Points, with a soft shimmer.
+      for (let i = 0; i < n; i++) {
+        const depth = proj[i * 3 + 2]
+        const twinkle = 0.75 + Math.sin(s.t * 3 + phase[i] * 3) * 0.25
+        ctx.fillStyle = `${colorAt(i / n + hueShift)}${(0.12 + depth * 0.6) * twinkle * k})`
+        ctx.beginPath()
+        ctx.arc(proj[i * 3], proj[i * 3 + 1], 0.4 + depth * 1.5, 0, Math.PI * 2)
         ctx.fill()
       }
       ctx.globalCompositeOperation = 'source-over'
@@ -115,8 +190,8 @@ export default function Orb() {
       frame = requestAnimationFrame(loop)
     }
     const onMove = (e) => {
-      state.mx = e.clientX / w - 0.5
-      state.my = e.clientY / h - 0.5
+      s.mx = e.clientX / w - 0.5
+      s.my = e.clientY / h - 0.5
     }
     const onVisibility = () => {
       cancelAnimationFrame(frame)

@@ -1,7 +1,11 @@
 import { Suspense, lazy } from 'react'
 import Background from './components/Background'
+import Highlights from './components/Highlights'
+import Marquee from './components/Marquee'
 import Navbar from './components/Navbar'
+import TwinCta from './components/TwinCta'
 import TwinButton from './components/TwinButton'
+import useSpotlight from './hooks/useSpotlight'
 import useTwinPanel from './hooks/useTwinPanel'
 import Hero from './sections/Hero'
 import About from './sections/About'
@@ -16,6 +20,7 @@ const TwinPanel = lazy(() => import('./components/TwinPanel'))
 
 export default function App() {
   const twin = useTwinPanel()
+  useSpotlight()
 
   return (
     <div className="min-h-screen font-sans text-zinc-900 antialiased dark:text-zinc-100">
@@ -29,11 +34,14 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
+        <Highlights />
+        <Marquee />
         <About />
         <Experience />
         <Projects />
         <Research />
         <Skills />
+        {site.twinEnabled && <TwinCta onAsk={twin.ask} />}
         <Contact />
       </main>
       <footer className="mx-auto max-w-7xl border-t border-zinc-200 px-4 py-10 font-mono text-xs leading-relaxed text-zinc-500 sm:px-6 dark:border-white/10 dark:text-zinc-500">
@@ -43,7 +51,7 @@ export default function App() {
       {site.twinEnabled && !twin.open && <TwinButton onClick={twin.show} />}
       {twin.open && (
         <Suspense fallback={null}>
-          <TwinPanel onClose={twin.hide} />
+          <TwinPanel onClose={twin.hide} initialQuestion={twin.question} />
         </Suspense>
       )}
     </div>

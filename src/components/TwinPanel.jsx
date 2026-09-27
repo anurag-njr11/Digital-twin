@@ -10,8 +10,9 @@ const iconButton =
   'rounded-md p-2 text-zinc-600 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:text-zinc-400 dark:hover:bg-zinc-800'
 
 // Slide-over chat with the twin (R4.1, R4.2). Lazy-loaded on first open so it stays out of the initial bundle (N1.2).
-export default function TwinPanel({ onClose }) {
+export default function TwinPanel({ onClose, initialQuestion }) {
   const { messages, busy, send, clear } = useTwinChat()
+  const asked = useRef(false)
   const [draft, setDraft] = useState('')
   const panelRef = useRef(null)
   const inputRef = useRef(null)
@@ -37,6 +38,14 @@ export default function TwinPanel({ onClose }) {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [onClose])
+
+  // A question passed in from the page is sent once (the ref survives StrictMode's double effect).
+  useEffect(() => {
+    if (initialQuestion && !asked.current) {
+      asked.current = true
+      send(initialQuestion)
+    }
+  }, [initialQuestion, send])
 
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight })
