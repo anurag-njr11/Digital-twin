@@ -21,6 +21,38 @@ export default function Research() {
                 {paper.role} · {paper.area}
               </p>
               <BulletList items={paper.bullets} />
+
+              {paper.framework && (
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                  <div>
+                    <SubHeading>{site.labels.framework}</SubHeading>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {paper.framework.map((f) => (
+                        <li key={f} className="rounded-lg border border-purple-500/30 bg-purple-50 px-3 py-1.5 text-sm text-purple-900 dark:bg-purple-500/10 dark:text-purple-200">
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {paper.objective && (
+                    <div>
+                      <SubHeading>{site.labels.objective}</SubHeading>
+                      <blockquote className="mt-3 border-l-2 border-blue-500/50 pl-4 text-zinc-700 italic dark:text-zinc-300">{paper.objective}</blockquote>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {paper.url && (
+                <a
+                  href={paper.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex rounded-full border border-blue-500/40 px-5 py-2 font-mono text-sm font-medium text-blue-700 transition hover:bg-blue-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-neon"
+                >
+                  {site.labels.readPaper} →
+                </a>
+              )}
             </article>
           ))}
         </div>

@@ -9,7 +9,15 @@
         "A framework for how universities can bring AI into teaching while protecting critical thinking and conceptual learning.",
         "Proposes a multi-stage learning architecture: AI-assisted exploration, human-only reflection, adaptive assignments and process-based assessment.",
         "Looks at the effects of AI overdependence and ways to keep students cognitively engaged."
-      ]
+      ],
+      "framework": [
+        "AI as cognitive infrastructure",
+        "Structured days: AI-restricted vs AI-open",
+        "Adaptive assignments with real-time feedback",
+        "Oral and process-based assessment"
+      ],
+      "objective": "Make sure technology improves learning without reducing how much students engage with understanding and applying ideas, so humans stay responsible for the reasoning.",
+      "url": "https://docs.google.com/document/d/1yG4JWqiKyx7TKkBSFKAjks26hjvblcTMFr4OrkZF1Rg/edit?usp=sharing"
     }
   ],
   "achievements": [

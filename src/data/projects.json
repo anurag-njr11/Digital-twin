@@ -16,12 +16,118 @@
       "~99% classification accuracy",
       "R² ≈ 0.98 severity prediction"
     ],
-    "repo": null,
+    "repo": "https://github.com/anurag-njr11/Intrusion-Detection-ML-model",
     "details": [
       "Two-stage pipeline: intrusion detection on KDD99, then CVSS severity prediction on CVE data.",
       "Random Forest and XGBoost ensembles for accuracy and robustness.",
       "SMOTE and One-vs-Rest classification to handle class imbalance and improve minority-class recall.",
-      "Model evaluation and hyperparameter tuning; artifacts prepared for potential deployment."
+      "Model evaluation and hyperparameter tuning; artifacts prepared for potential deployment.",
+      "Stage 2 predicts a CVSS severity score from 0 to 10 with regression."
+    ],
+    "pipeline": [
+      {
+        "title": "Data integration & SMOTE",
+        "text": "Oversampled the rare U2R class from 35 to 330,000+ synthetic samples."
+      },
+      {
+        "title": "Classification",
+        "text": "Labels KDD99 network traffic as normal or one of four attack categories."
+      },
+      {
+        "title": "CVSS regression",
+        "text": "Predicts a CVSS severity score from 0 to 10, with R² up to 0.982."
+      }
+    ],
+    "charts": [
+      {
+        "id": "f1",
+        "kind": "bars",
+        "title": "F1-score per attack category",
+        "unit": "%",
+        "max": 100,
+        "data": [
+          {
+            "label": "Normal",
+            "value": 99
+          },
+          {
+            "label": "DoS",
+            "value": 100
+          },
+          {
+            "label": "Probe",
+            "value": 99
+          },
+          {
+            "label": "R2L",
+            "value": 91
+          },
+          {
+            "label": "U2R",
+            "value": 64
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "kind": "bars",
+        "title": "Severity model benchmark (R²)",
+        "unit": "",
+        "max": 1,
+        "data": [
+          {
+            "label": "Decision Tree",
+            "value": 0.982
+          },
+          {
+            "label": "SVR (RBF)",
+            "value": 0.978
+          },
+          {
+            "label": "KNN (k=5)",
+            "value": 0.945
+          },
+          {
+            "label": "Linear Regression",
+            "value": 0.496
+          }
+        ],
+        "decimals": 3
+      },
+      {
+        "id": "smote",
+        "kind": "grouped",
+        "title": "SMOTE impact on the U2R class",
+        "unit": "%",
+        "max": 100,
+        "series": [
+          "Before SMOTE",
+          "After SMOTE"
+        ],
+        "data": [
+          {
+            "label": "Recall",
+            "values": [
+              35,
+              47
+            ]
+          },
+          {
+            "label": "F1-score",
+            "values": [
+              52,
+              64
+            ]
+          },
+          {
+            "label": "Precision",
+            "values": [
+              100,
+              100
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -33,40 +139,77 @@
       "Node.js",
       "Express.js",
       "MongoDB",
-      "Gemini AI"
+      "Mongoose",
+      "Gemini AI",
+      "GSAP",
+      "Recharts"
     ],
     "summary": "A genomics web app that analyzes DNA sequences and explains them in plain language. The backend does the sequence analysis; Gemini writes the summaries and powers a chat assistant.",
     "metrics": [],
-    "repo": null,
+    "repo": "https://github.com/anurag-njr11/Symbio-project",
     "details": [
       "Backend processing for GC-content analysis, ORF detection, nucleotide distribution and FASTA validation.",
       "Gemini AI APIs for sequence-specific natural-language summaries and chatbot-based genomics help.",
       "Animated AI assistant chatbot with contextual interactions, built with GSAP.",
-      "REST API with JWT and bcrypt authentication."
-    ]
-  },
-  {
-    "id": "digital-twin",
-    "title": "Portfolio + AI Digital Twin",
-    "date": "Sep 2026",
-    "stack": [
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "Vercel Functions",
-      "Gemini API",
-      "Zod",
-      "Upstash Redis"
+      "REST API with JWT and bcrypt authentication.",
+      "Generates a PDF report for each analysis."
     ],
-    "summary": "This site. A chat assistant answers questions about my work using only the content on this page, links each answer to the section it came from, and says so when it doesn't know.",
-    "metrics": [],
-    "repo": "https://github.com/anurag-njr11/Digital-twin",
-    "details": [
-      "The whole portfolio is built into one context pack at deploy time, with a token budget and a phone-number check that fail the build.",
-      "Answers stream over Server-Sent Events; the model cites block IDs, which the server turns into source links.",
-      "Guardrails: input rules for off-topic and prompt-injection questions, an output check that stops phone numbers and prompt leaks mid-stream, and Gemini safety filters.",
-      "Rate limiting with hashed IPs, a daily cap, and anonymous question logs that expire after 90 days.",
-      "A 70-case eval set (facts, multi-hop, unknowns, out-of-scope, prompt injection, PII) runs against every deployment."
-    ]
+    "pipeline": [
+      {
+        "title": "FASTA validation",
+        "text": "Checks that the uploaded sequence is valid FASTA."
+      },
+      {
+        "title": "Sequence analysis",
+        "text": "GC-content, nucleotide distribution and ORF detection."
+      },
+      {
+        "title": "AI interpretation & report",
+        "text": "Gemini explains the results in plain language; the app exports a PDF report."
+      }
+    ],
+    "sample": {
+      "title": "Sample analysis: test_sequence.fasta",
+      "stats": [
+        {
+          "label": "Length",
+          "value": "171 bp"
+        },
+        {
+          "label": "GC content",
+          "value": "53.21%"
+        },
+        {
+          "label": "ORF",
+          "value": "Found"
+        }
+      ],
+      "chart": {
+        "id": "bases",
+        "kind": "bars",
+        "title": "Base distribution",
+        "unit": "%",
+        "max": 40,
+        "data": [
+          {
+            "label": "A",
+            "value": 24
+          },
+          {
+            "label": "T",
+            "value": 22.8
+          },
+          {
+            "label": "G",
+            "value": 30.4
+          },
+          {
+            "label": "C",
+            "value": 22.8
+          }
+        ],
+        "decimals": 1
+      }
+    }
   }
 ]

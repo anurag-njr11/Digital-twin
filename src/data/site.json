@@ -1,18 +1,45 @@
 {
   "twinEnabled": true,
   "nav": [
-    { "id": "about", "label": "About" },
-    { "id": "experience", "label": "Experience" },
-    { "id": "projects", "label": "Projects" },
-    { "id": "research", "label": "Research" },
-    { "id": "skills", "label": "Skills" },
-    { "id": "contact", "label": "Contact" },
-    { "id": "twin", "label": "Ask my twin" }
+    {
+      "id": "about",
+      "label": "About"
+    },
+    {
+      "id": "experience",
+      "label": "Experience"
+    },
+    {
+      "id": "projects",
+      "label": "Projects"
+    },
+    {
+      "id": "research",
+      "label": "Research"
+    },
+    {
+      "id": "skills",
+      "label": "Skills"
+    },
+    {
+      "id": "contact",
+      "label": "Contact"
+    },
+    {
+      "id": "twin",
+      "label": "Ask my twin"
+    }
   ],
   "sections": {
-    "about": { "title": "About" },
-    "experience": { "title": "Experience" },
-    "projects": { "title": "Projects" },
+    "about": {
+      "title": "About"
+    },
+    "experience": {
+      "title": "Experience"
+    },
+    "projects": {
+      "title": "Projects"
+    },
     "research": {
       "title": "Research & Achievements",
       "papers": "Research",
@@ -20,7 +47,9 @@
       "certifications": "Certifications",
       "leadership": "Leadership"
     },
-    "skills": { "title": "Skills" },
+    "skills": {
+      "title": "Skills"
+    },
     "contact": {
       "title": "Contact",
       "blurb": "Email is the fastest way to reach me. I'm also on GitHub and LinkedIn."
@@ -46,7 +75,12 @@
     "closeMenu": "Close menu",
     "toggleTheme": "Toggle dark mode",
     "footer": "Built with React, Vite and Tailwind CSS.",
-    "privacy": "Privacy: the chat assistant keeps your conversation only in this browser tab. The server logs the questions asked, with no IP address or other identifier, and deletes them after 90 days. No cookies."
+    "privacy": "Privacy: the chat assistant keeps your conversation only in this browser tab. The server logs the questions asked, with no IP address or other identifier, and deletes them after 90 days. No cookies.",
+    "pipeline": "Pipeline",
+    "readPaper": "Read the full paper",
+    "framework": "Framework",
+    "objective": "Objective",
+    "chartTable": "Data table"
   },
   "twin": {
     "title": "Ask my twin",

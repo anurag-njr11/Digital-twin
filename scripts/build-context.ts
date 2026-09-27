@@ -30,6 +30,15 @@ export type SourceData = {
 
 const list = (items: string[]) => items.map((b) => `- ${b}`).join('\n')
 
+// Charts go into the pack as plain numbers so the twin can answer questions about them.
+function renderChart(c: Json): string {
+  const fmt = (v: number) => `${c.decimals === undefined ? v : v.toFixed(c.decimals)}${c.unit}`
+  if (c.kind === 'grouped') {
+    return `${c.title}: ${c.data.map((d: Json) => `${d.label} ${d.values.map((v: number, i: number) => `${c.series[i]} ${fmt(v)}`).join(' / ')}`).join('; ')}.`
+  }
+  return `${c.title}: ${c.data.map((d: Json) => `${d.label} ${fmt(d.value)}`).join(', ')}.`
+}
+
 export function parseFaq(markdown: string): FaqEntry[] {
   return markdown
     .split(/^## /m)
@@ -95,6 +104,12 @@ export function renderBlocks(d: SourceData): Block[] {
     const lines = [proj.date ? `${proj.title} (${proj.date})` : proj.title, `Stack: ${proj.stack.join(', ')}.`, proj.summary]
     if (proj.metrics.length) lines.push(`Results: ${proj.metrics.join('; ')}.`)
     if (proj.details?.length) lines.push(list(proj.details))
+    if (proj.pipeline?.length) lines.push(`Pipeline: ${proj.pipeline.map((st: Json) => `${st.title}: ${st.text}`).join(' | ')}`)
+    for (const c of proj.charts ?? []) lines.push(renderChart(c))
+    if (proj.sample) {
+      const sm = proj.sample
+      lines.push(`${sm.title}: ${sm.stats.map((x: Json) => `${x.label} ${x.value}`).join(', ')}. ${renderChart(sm.chart)}`)
+    }
     if (proj.repo) lines.push(`Code: ${proj.repo}`)
     blocks.push({ id: `proj:${proj.id}`, anchor: { title: proj.title, ...at('projects') }, text: lines.join('\n') })
   }
@@ -104,7 +119,15 @@ export function renderBlocks(d: SourceData): Block[] {
     blocks.push({
       id: `paper:${paper.id}`,
       anchor: { title: paper.title, ...at('research') },
-      text: `Paper: "${paper.title}". ${paper.role}. Area: ${paper.area}.\n${list(paper.bullets)}`,
+      text: [
+        `Paper: "${paper.title}". ${paper.role}. Area: ${paper.area}.`,
+        list(paper.bullets),
+        paper.framework?.length ? `Framework: ${paper.framework.join('; ')}.` : '',
+        paper.objective ? `Objective: ${paper.objective}` : '',
+        paper.url ? `Full paper: ${paper.url}` : '',
+      ]
+        .filter(Boolean)
+        .join('\n'),
     })
   }
   for (const a of r.achievements) {
