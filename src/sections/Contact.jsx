@@ -6,7 +6,7 @@ import site from '../data/site.json'
 export default function Contact() {
   return (
     <Section id="contact" index="06" title={site.sections.contact.title}>
-      <div data-reveal className="glass relative overflow-hidden rounded-3xl p-8 text-center sm:p-14">
+      <div data-reveal className="glass relative overflow-hidden rounded-2xl p-8 text-center sm:p-14">
         <div aria-hidden="true" className="absolute top-1/2 left-1/2 size-96 -translate-1/2 rounded-full bg-blue-500/10 blur-[100px]" />
         <p className="relative mx-auto max-w-xl text-lg text-zinc-700 dark:text-zinc-300">{site.sections.contact.blurb}</p>
         <a

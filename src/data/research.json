@@ -23,15 +23,24 @@
   "achievements": [
     {
       "id": "startathon-rebin",
-      "text": "Top 10 Finalist at India Sustainability Startathon; received a promissory seed funding agreement for my startup idea ReBin."
+      "text": "Top 10 Finalist at India Sustainability Startathon; received a promissory seed funding agreement for my startup idea ReBin.",
+      "title": "India Sustainability Startathon",
+      "highlight": "Top 10 Finalist",
+      "detail": "Received a promissory seed funding agreement for my startup idea ReBin."
     },
     {
       "id": "tie-u-bangalore",
-      "text": "Semi-finalist at TiE U Bangalore Chapter 2025."
+      "text": "Semi-finalist at TiE U Bangalore Chapter 2025.",
+      "title": "TiE U Bangalore Chapter 2025",
+      "highlight": "Semi-finalist",
+      "detail": "Reached the semi-finals of the TiE U Bangalore Chapter 2025."
     },
     {
       "id": "pjmt-green-earth",
-      "text": "Qualified for the South Zonal Round of the PJMT National Green Earth Challenge 2026."
+      "text": "Qualified for the South Zonal Round of the PJMT National Green Earth Challenge 2026.",
+      "title": "PJMT National Green Earth Challenge 2026",
+      "highlight": "Zonal qualifier",
+      "detail": "Qualified for the South Zonal Round."
     }
   ],
   "certifications": [
@@ -53,15 +62,21 @@
   "leadership": [
     {
       "id": "football-captain",
-      "text": "University Football Captain; runner-up in the inter-department football tournament."
+      "text": "University Football Captain; runner-up in the inter-department football tournament.",
+      "title": "University Football Captain",
+      "detail": "Captained the university team; runner-up in the inter-department football tournament."
     },
     {
       "id": "kvs-taekwondo",
-      "text": "Represented Kendriya Vidyalaya Sangathan at a national-level Taekwondo competition."
+      "text": "Represented Kendriya Vidyalaya Sangathan at a national-level Taekwondo competition.",
+      "title": "National-level Taekwondo",
+      "detail": "Represented Kendriya Vidyalaya Sangathan at a national-level Taekwondo competition."
     },
     {
       "id": "ncc-b",
-      "text": "NCC 'B' Certificate holder."
+      "text": "NCC 'B' Certificate holder.",
+      "title": "NCC 'B' Certificate",
+      "detail": "Holder of the National Cadet Corps 'B' Certificate."
     }
   ]
 }

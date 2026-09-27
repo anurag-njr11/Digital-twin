@@ -13,7 +13,7 @@ export default function ProjectCard({ project, index }) {
   const { sample, charts = [], pipeline = [] } = project
 
   return (
-    <article data-reveal className="glass relative overflow-hidden rounded-3xl p-6 sm:p-8">
+    <article data-reveal className="glass relative overflow-hidden rounded-2xl p-6 sm:p-8">
       <div aria-hidden="true" className="absolute -top-32 -right-32 size-72 rounded-full bg-blue-500/10 blur-3xl" />
 
       <div className="relative grid gap-8 lg:grid-cols-2">

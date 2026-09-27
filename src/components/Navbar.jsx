@@ -39,7 +39,7 @@ export default function Navbar() {
           : 'border-transparent bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6" aria-label="Main">
+      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Main">
         <a
           href="#top"
           aria-label={profile.name}

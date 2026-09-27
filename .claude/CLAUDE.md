@@ -38,6 +38,8 @@ Stack: React + Vite, Tailwind CSS, deployed on Vercel. <!-- update if different 
 ## Design
 - Dark neon look (near-black, blue/cyan/purple accents, glass cards; Space Grotesk / Inter / JetBrains Mono), with a light theme too. Mobile-first.
 - Motion uses GSAP through `useGsap` (src/hooks/useGsap.js): content must be readable without it, and nothing animates under `prefers-reduced-motion`.
+- Cards: use `InfoCard` (one anatomy everywhere). Accents: amber = achievements, cyan = certifications, violet = leadership/interests, blue = education/experience. Rows must fill evenly (use 5/6-column spans for odd counts).
+- Content width is `max-w-7xl`. The 3D knot (`Orb.jsx`) is canvas-only, no Three.js.
 - Images need alt text, and the site should stay accessible with a keyboard.
 
 ## Workflow

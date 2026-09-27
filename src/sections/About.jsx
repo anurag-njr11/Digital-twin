@@ -1,5 +1,5 @@
 import Section from '../components/Section'
-import SubHeading from '../components/SubHeading'
+import InfoCard from '../components/InfoCard'
 import Tag from '../components/Tag'
 import profile from '../data/profile.json'
 import site from '../data/site.json'
@@ -9,32 +9,26 @@ export default function About() {
 
   return (
     <Section id="about" index="01" title={site.sections.about.title}>
-      <div className="grid gap-10 lg:grid-cols-[3fr_2fr]">
-        <div className="space-y-5 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
-          {profile.about.map((p) => (
-            <p key={p} data-reveal>
+      <div className="grid gap-10 lg:grid-cols-12">
+        <div className="space-y-5 text-lg leading-relaxed text-zinc-700 lg:col-span-7 lg:text-xl dark:text-zinc-300">
+          {profile.about.map((p, i) => (
+            <p key={p} data-reveal className={i === 0 ? 'text-zinc-900 dark:text-white' : undefined}>
               {p}
             </p>
           ))}
         </div>
 
-        <div className="space-y-4">
-          <div data-reveal className="glass rounded-2xl p-6">
-            <SubHeading>{site.labels.education}</SubHeading>
-            <p className="mt-3 font-display text-lg font-bold text-zinc-900 dark:text-white">{education.school}</p>
-            <p className="mt-1 text-zinc-700 dark:text-zinc-300">{education.degree}</p>
-            <p className="mt-2 font-mono text-xs text-zinc-500 dark:text-zinc-400">
-              {education.location} · {education.graduation}
-            </p>
-          </div>
-          <div data-reveal className="glass rounded-2xl p-6">
-            <SubHeading>{site.labels.interests}</SubHeading>
-            <ul className="mt-3 flex flex-wrap gap-1.5">
+        <div className="grid gap-5 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
+          <InfoCard icon="cap" accent="blue" eyebrow={site.labels.education} title={education.school} meta={`${education.location} · ${education.graduation}`}>
+            {education.degree}
+          </InfoCard>
+          <InfoCard icon="spark" accent="violet" eyebrow={site.labels.interests}>
+            <ul className="flex flex-wrap gap-2">
               {profile.interests.map((i) => (
                 <Tag key={i}>{i}</Tag>
               ))}
             </ul>
-          </div>
+          </InfoCard>
         </div>
       </div>
     </Section>

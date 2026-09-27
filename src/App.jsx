@@ -36,7 +36,7 @@ export default function App() {
         <Skills />
         <Contact />
       </main>
-      <footer className="mx-auto max-w-5xl border-t border-zinc-200 px-4 py-10 font-mono text-xs leading-relaxed text-zinc-500 sm:px-6 dark:border-white/10 dark:text-zinc-500">
+      <footer className="mx-auto max-w-7xl border-t border-zinc-200 px-4 py-10 font-mono text-xs leading-relaxed text-zinc-500 sm:px-6 dark:border-white/10 dark:text-zinc-500">
         <p>{site.labels.footer}</p>
         {site.twinEnabled && <p className="mt-2">{site.labels.privacy}</p>}
       </footer>

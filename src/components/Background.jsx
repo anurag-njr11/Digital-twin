@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import Orb from './Orb'
 
 const COLORS = ['34, 211, 238', '59, 130, 246', '139, 92, 246'] // cyan, blue, purple
 
@@ -12,7 +13,7 @@ export default function Background() {
     const ctx = canvas.getContext('2d')
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const small = window.innerWidth < 768
-    const count = small ? 35 : 90
+    const count = small ? 25 : 55
     const linkDist = small ? 90 : 130
     const mouseDist = 180
     const mouse = { x: -1e4, y: -1e4 }
@@ -114,8 +115,9 @@ export default function Background() {
   }, [])
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-zinc-50 dark:bg-ink">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-slate-50 dark:bg-ink">
       <canvas ref={canvasRef} className="absolute inset-0 size-full" />
+      <Orb />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] bg-size-[50px_50px] dark:bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)]" />
       <div className="absolute -top-1/4 -left-1/4 size-[70%] rounded-full bg-blue-400/10 blur-[150px] dark:bg-blue-900/20" />
       <div className="absolute -right-1/4 -bottom-1/4 size-[80%] rounded-full bg-purple-400/10 blur-[180px] dark:bg-purple-900/15" />
