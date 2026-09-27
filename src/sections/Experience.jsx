@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import Section from '../components/Section'
 import InfoCard from '../components/InfoCard'
-import useGsap from '../hooks/useGsap'
+import useGsap, { SCRUB } from '../hooks/useGsap'
 import experience from '../data/experience.json'
 import site from '../data/site.json'
 
@@ -14,8 +14,12 @@ export default function Experience() {
       scaleY: 0,
       transformOrigin: 'top',
       ease: 'none',
-      scrollTrigger: { trigger: ref.current, start: 'top 75%', end: 'bottom 50%', scrub: true },
+      scrollTrigger: { trigger: ref.current, start: 'top 75%', end: 'bottom 50%', scrub: SCRUB },
     })
+    // Each stop on the timeline lights up as the line reaches it.
+    for (const dot of gsap.utils.toArray('[data-timeline-dot]', ref.current)) {
+      gsap.from(dot, { scale: 0, autoAlpha: 0, duration: 0.6, ease: 'back.out(3)', scrollTrigger: { trigger: dot, start: 'top 70%', once: true } })
+    }
   })
 
   return (
@@ -25,7 +29,7 @@ export default function Experience() {
         <span aria-hidden="true" data-timeline-fill className="absolute top-2 bottom-2 left-[5px] w-px bg-linear-to-b from-blue-500 via-violet-500 to-cyan-400" />
         {experience.map((job) => (
           <li key={job.id} className="relative">
-            <span aria-hidden="true" className="absolute top-8 -left-8 size-[11px] rounded-full border-2 border-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.7)] bg-ink" />
+            <span aria-hidden="true" data-timeline-dot className="absolute top-8 -left-8 size-[11px] rounded-full border-2 border-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.7)] bg-ink" />
             <InfoCard icon="brief" accent="blue" eyebrow={`${job.start} – ${job.end}`} title={`${job.role} · ${job.company}`} meta={job.location}>
               <ul className="grid gap-x-10 gap-y-3 md:grid-cols-2">
                 {job.bullets.map((b) => (

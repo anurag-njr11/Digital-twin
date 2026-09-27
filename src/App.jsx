@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react'
 import Background from './components/Background'
 import Highlights from './components/Highlights'
 import Navbar from './components/Navbar'
+import ScrollProgress from './components/ScrollProgress'
 import TwinCta from './components/TwinCta'
 import TwinButton from './components/TwinButton'
 import useSpotlight from './hooks/useSpotlight'
@@ -30,6 +31,7 @@ export default function App() {
       >
         {site.labels.skipToContent}
       </a>
+      <ScrollProgress />
       <Navbar />
       <main id="main">
         <Hero />

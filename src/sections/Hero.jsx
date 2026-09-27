@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ButtonLink from '../components/ButtonLink'
-import useGsap from '../hooks/useGsap'
+import useGsap, { SCRUB } from '../hooks/useGsap'
 import profile from '../data/profile.json'
 import links from '../data/links.json'
 import site from '../data/site.json'
@@ -79,7 +79,17 @@ export default function Hero() {
       scale: (i) => 1 + i * 0.12,
       opacity: (i) => 0.5 / (i + 2),
       ease: 'none',
-      scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
+      scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: SCRUB },
+    })
+
+    // The whole intro sinks back and softens as you scroll into the page.
+    gsap.to('[data-hero-content]', {
+      yPercent: 18,
+      scale: 0.9,
+      autoAlpha: 0,
+      filter: 'blur(6px)',
+      ease: 'none',
+      scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom 15%', scrub: SCRUB },
     })
   })
 
@@ -97,7 +107,7 @@ export default function Hero() {
         <div className="absolute size-[36rem] rounded-full bg-linear-to-tr from-blue-500/10 to-purple-500/10 blur-[120px]" />
       </div>
 
-      <div className="relative">
+      <div data-hero-content className="relative">
         <p data-hero-tag className="mb-6 flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.3em] uppercase text-blue-400">
           <span className="size-2 animate-pulse rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
           {site.hero.tag}

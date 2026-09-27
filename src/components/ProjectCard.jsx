@@ -18,7 +18,7 @@ export default function ProjectCard({ project, index }) {
   const oddLast = (i) => charts.length % 2 === 1 && i === charts.length - 1
 
   return (
-    <article data-reveal className="glass relative overflow-hidden rounded-2xl p-4 sm:p-5">
+    <article data-project className="glass relative overflow-hidden rounded-2xl p-4 sm:p-5">
       <div aria-hidden="true" className="absolute -top-32 -right-32 size-72 rounded-full bg-blue-500/10 blur-3xl" />
 
       <div className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-12">
