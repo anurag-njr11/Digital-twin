@@ -118,9 +118,10 @@ export default function Orb() {
       const A = targets[a]
       const B = targets[a + 1]
 
-      const cx = w * (small ? 0.5 : 0.5 + 0.24 * Math.cos(s.progress * Math.PI * 3))
+      // Centered at the top of the page, then drifts right, left and back as the story scrolls.
+      const cx = w * (small ? 0.5 : 0.5 + 0.24 * Math.sin(s.progress * Math.PI * 3))
       const cy = h * (small ? 0.4 : 0.5)
-      const R = Math.min(w, h) * (small ? 0.34 : 0.3) * (1 + Math.sin(s.t * 0.8) * 0.04)
+      const R = Math.min(w, h) * (small ? 0.42 : 0.38) * (1 + Math.sin(s.t * 0.8) * 0.04)
       const ay = s.rot + s.tiltY
       // Tip the wave field toward the viewer so it isn't seen edge-on.
       const waveTilt = a + 1 === SHAPES.length - 1 ? f * 0.55 : 0
