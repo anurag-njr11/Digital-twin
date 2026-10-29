@@ -11,15 +11,15 @@ const SIZES = {
   lg: 'size-14 rounded-2xl text-lg',
 }
 
-// The site's monogram in a glass chip. It glows while a reply is on its way.
+// The site's monogram on the card surface. It pulses while a reply is on its way.
 export default function TwinAvatar({ size = 'md', busy = false }) {
   return (
     <span
       aria-hidden="true"
-      className={`inline-flex shrink-0 items-center justify-center bg-blue-500/10 font-display font-bold text-white ring-1 ring-blue-500/30 transition-shadow duration-500 ${SIZES[size]} ${busy ? 'animate-pulse shadow-[0_0_18px_rgba(59,130,246,0.55)]' : ''}`}
+      className={`inline-flex shrink-0 items-center justify-center bg-surface font-serif text-stone-50 ring-1 ring-line ${SIZES[size]} ${busy ? 'animate-pulse' : ''}`}
     >
       {initials}
-      <span className="text-neon">.</span>
+      <span className="text-accent">.</span>
     </span>
   )
 }

@@ -3,69 +3,38 @@
     "group": "Languages",
     "items": [
       "Python",
-      "JavaScript"
+      "JavaScript",
+      "SQL"
     ]
   },
   {
-    "group": "Machine Learning & Data Science",
+    "group": "Machine learning",
     "items": [
       "Scikit-learn",
       "Pandas",
       "NumPy",
-      "Matplotlib",
-      "Seaborn",
-      "ML Pipelines",
-      "Classification",
-      "Regression",
-      "Ensemble Learning",
-      "Feature Engineering",
-      "SMOTE",
-      "Data Cleaning",
-      "Data Visualization"
+      "XGBoost",
+      "Imbalanced data (SMOTE)"
     ]
   },
   {
-    "group": "AI & Agentic Systems",
+    "group": "LLM apps",
     "items": [
       "LangChain",
-      "LangGraph",
-      "Retrieval-Augmented Generation (RAG)",
-      "Agentic AI Development",
-      "Multi-agent Systems",
-      "Model Context Protocol (MCP)",
-      "Gemini API Integration",
-      "AI Chatbot Systems",
-      "AI-Powered Summarization",
-      "Predictive Modeling",
-      "Claude Code (exposure)"
+      "RAG",
+      "Gemini API",
+      "FastAPI",
+      "Vector databases"
     ]
   },
   {
-    "group": "Development & Tools",
+    "group": "Web & tools",
     "items": [
-      "React.js",
-      "Node.js",
-      "Express.js",
+      "React",
+      "Node.js / Express",
       "MongoDB",
-      "SQLite",
-      "SQL",
-      "REST APIs",
       "Git",
-      "Linux",
-      "Bash",
-      "Postman",
-      "VS Code",
-      "Power BI",
-      "Excel"
-    ]
-  },
-  {
-    "group": "MLOps & Deployment",
-    "items": [
-      "Model training",
-      "Experimentation",
-      "MLflow (basics)",
-      "Monitoring concepts"
+      "Linux"
     ]
   }
 ]

@@ -1,7 +1,64 @@
 [
   {
+    "id": "raglabs",
+    "featured": true,
+    "title": "RAGLabs: Build a RAG Pipeline, Then Measure Why It Fails",
+    "date": "Sep–Oct 2026",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "React",
+      "FAISS",
+      "Chroma",
+      "Qdrant",
+      "LanceDB",
+      "SQLite"
+    ],
+    "summary": "An open-source workbench for retrieval-augmented generation. Upload documents, build and tune every stage of the pipeline from a web UI, chat with cited answers, then score the pipeline on questions generated from your own documents, with a diagnosis for every miss.",
+    "metrics": [
+      "245 backend tests",
+      "5 vector stores behind one contract",
+      "Hit@k, MRR, nDCG with 95% CIs"
+    ],
+    "repo": "https://github.com/anurag-njr11/Rag-Labs",
+    "details": [
+      "Most RAG failures happen before the LLM writes a word: the right passage was never retrieved. RAGLabs makes that measurable.",
+      "No-code pipeline: parse, chunk, embed, store, retrieve, rerank, prompt and generate, each with real options. Every saved configuration is an immutable version you can diff and roll back to.",
+      "Retrieval: dense, BM25 keyword, hybrid and fused search with exact matching for error messages and code symbols; RRF or weighted fusion, MMR, query expansion (multi-query, HyDE) and local cross-encoder reranking.",
+      "Vector stores behind one contract and one shared test suite: NumPy, FAISS (Flat, IVF, HNSW), Chroma, Qdrant and LanceDB. Switching store never re-embeds.",
+      "Evaluation: one-click eval sets from your documents; Hit@k, MRR, nDCG, tokens and p50/p95 latency, optional LLM-graded answers with 95% confidence intervals.",
+      "Sweeps over up to 4 settings with a quality-vs-cost Pareto leaderboard; Promote makes the winner live.",
+      "Corpus Health turns real user questions into a backlog of what the documents can't answer, plus duplicates, contradictions and stale documents.",
+      "Bring your own RAG: score any HTTP endpoint or Python function on the same eval set, and gate CI with the raglabs CLI.",
+      "Runs locally: documents and indexes stay in SQLite and a local vector store; API keys are encrypted at rest with AES-256-GCM.",
+      "On a 13-question set from the Pydantic v2 docs demo, a tuned configuration ranked the right passage first 77% of the time (Hit@1) and in the top 3 every time. That set is small and generated from the same documents, so it is a smoke test, not a benchmark."
+    ],
+    "pipeline": [
+      {
+        "title": "Build",
+        "text": "Pick and tune each stage, from parser and chunker to vector store, retriever and reranker, with no code."
+      },
+      {
+        "title": "Chat and inspect",
+        "text": "Streaming cited answers; an inspector shows which passages were found, by which search path, and what was dropped."
+      },
+      {
+        "title": "Evaluate and sweep",
+        "text": "Generated eval sets, retrieval metrics, a diagnosis per miss, and sweeps that promote the best configuration."
+      }
+    ],
+    "video": {
+      "src": "/projects/raglabs-demo.mp4",
+      "poster": "/projects/raglabs-demo-poster.jpg",
+      "width": 1200,
+      "height": 646,
+      "caption": "Ask a question and inspect the cited sources, score the pipeline, then edit it on the canvas.",
+      "label": "RAGLabs demo: asking a question and inspecting cited sources, running an evaluation, then editing the pipeline on the canvas"
+    }
+  },
+  {
     "id": "ids-cvss-pipeline",
-    "title": "Two-Stage ML Pipeline: Intrusion Detection & CVSS Severity",
+    "title": "Network Intrusion Detection on KDD99",
     "date": "Apr 2026",
     "stack": [
       "Python",
@@ -11,23 +68,24 @@
       "Random Forest",
       "SMOTE"
     ],
-    "summary": "Detects network intrusions on the KDD99 dataset, then predicts CVSS severity from CVE data. It simulates a SOC-style workflow: detect a threat, then prioritize it.",
+    "summary": "Classifies network traffic as normal or one of four attack types, with SMOTE and One-vs-Rest models to catch the rarest attacks. A second stage experiments with predicting CVSS severity from CVE data.",
     "metrics": [
-      "~99% classification accuracy",
-      "R² ≈ 0.98 severity prediction"
+      "Per-class F1 95–100%, except U2R",
+      "U2R: 8 of 17 test attacks caught (F1 64%)"
     ],
     "repo": "https://github.com/anurag-njr11/Intrusion-Detection-ML-model",
     "details": [
       "Two-stage pipeline: intrusion detection on KDD99, then CVSS severity prediction on CVE data.",
-      "Random Forest and XGBoost ensembles for accuracy and robustness.",
-      "SMOTE and One-vs-Rest classification to handle class imbalance and improve minority-class recall.",
-      "Model evaluation and hyperparameter tuning; artifacts prepared for potential deployment.",
-      "Stage 2 predicts a CVSS severity score from 0 to 10 with regression."
+      "Random Forest and XGBoost ensembles; overall accuracy ~99%, but KDD99 is dominated by easy DoS traffic, so per-class F1 is the more honest measure.",
+      "Binary One-vs-Rest models with SMOTE: F1 of 99.9% Normal, 100% DoS, 99.2% Probe, 95.3% R2L and 64% U2R.",
+      "SMOTE was applied after the train/test split, to the training data only (35 U2R samples oversampled to 330,959).",
+      "The test set has only 17 U2R samples. SMOTE raised U2R recall from 6 of 17 (35%) to 8 of 17 (47%), with 100% precision.",
+      "Stage 2 predicts a CVSS score from 0 to 10 with regression (R² ≈ 0.98), but its 21 features include the six CVSS v2 access and impact metrics the score is calculated from, so that R² mostly reflects the formula rather than real prediction."
     ],
     "pipeline": [
       {
         "title": "Data integration & SMOTE",
-        "text": "Oversampled the rare U2R class from 35 to 330,000+ synthetic samples."
+        "text": "Oversampled the rare U2R class in the training split only, from 35 to 330,959 samples. The test set is untouched."
       },
       {
         "title": "Classification",
@@ -35,20 +93,20 @@
       },
       {
         "title": "CVSS regression",
-        "text": "Predicts a CVSS severity score from 0 to 10, with R² up to 0.982."
+        "text": "Predicts a CVSS score from 0 to 10. Its inputs include the CVSS v2 base metrics, so it mostly reproduces the formula."
       }
     ],
     "charts": [
       {
         "id": "f1",
         "kind": "bars",
-        "title": "F1-score per attack category",
+        "title": "F1 per attack category (One-vs-Rest + SMOTE)",
         "unit": "%",
         "max": 100,
         "data": [
           {
             "label": "Normal",
-            "value": 99
+            "value": 99.9
           },
           {
             "label": "DoS",
@@ -56,48 +114,23 @@
           },
           {
             "label": "Probe",
-            "value": 99
+            "value": 99.2
           },
           {
             "label": "R2L",
-            "value": 91
+            "value": 95.3
           },
           {
             "label": "U2R",
             "value": 64
           }
-        ]
-      },
-      {
-        "id": "r2",
-        "kind": "bars",
-        "title": "Severity model benchmark (R²)",
-        "unit": "",
-        "max": 1,
-        "data": [
-          {
-            "label": "Decision Tree",
-            "value": 0.982
-          },
-          {
-            "label": "SVR (RBF)",
-            "value": 0.978
-          },
-          {
-            "label": "KNN (k=5)",
-            "value": 0.945
-          },
-          {
-            "label": "Linear Regression",
-            "value": 0.496
-          }
         ],
-        "decimals": 3
+        "decimals": 1
       },
       {
         "id": "smote",
         "kind": "grouped",
-        "title": "SMOTE impact on the U2R class",
+        "title": "SMOTE impact on U2R (17 test samples)",
         "unit": "%",
         "max": 100,
         "series": [
@@ -128,6 +161,47 @@
           }
         ]
       }
+    ],
+    "note": "SMOTE was fit on the training split only. Stage 2's inputs include the CVSS v2 base metrics the score is calculated from, so it mostly reproduces that formula; a fair test would predict severity from the CVE text alone."
+  },
+  {
+    "id": "digital-twin",
+    "title": "Portfolio AI Twin: Grounded Chat Assistant",
+    "date": "Sep 2026",
+    "stack": [
+      "React",
+      "Vite",
+      "Vercel Functions",
+      "Gemini API",
+      "Zod",
+      "Upstash Redis",
+      "Vitest"
+    ],
+    "summary": "The chat assistant on this page. It answers questions about my work using only this site's content, cites the section each answer came from, and says when it doesn't know.",
+    "metrics": [
+      "70 eval cases gate every deploy"
+    ],
+    "repo": "https://github.com/anurag-njr11/Digital-twin",
+    "details": [
+      "The page and the assistant read the same data files, so they can't disagree. A build step turns them into a tagged context pack and fails if it goes over 8,000 tokens or contains a phone number.",
+      "The model cites block IDs; the server strips them out and sends them as source chips that scroll to the matching section.",
+      "Input rules decline salary, politics, personal and prompt-injection questions without calling the model. An output check stops phone numbers and prompt leaks mid-stream.",
+      "Rate limits of 20 requests per 10 minutes per visitor (salted IP hash) and 500 a day overall. Logs keep only the question, topic, latency and outcome, and expire after 90 days.",
+      "70 eval cases (facts, multi-hop, unknowns, out-of-scope, prompt injection, PII) run against each deployment. Gates: 95% overall, 100% on injection, PII and out-of-scope."
+    ],
+    "pipeline": [
+      {
+        "title": "Context pack",
+        "text": "Site data and an approved FAQ are compiled into tagged blocks at build time."
+      },
+      {
+        "title": "Guardrails",
+        "text": "Schema validation, rate limits and input rules run before the model is called."
+      },
+      {
+        "title": "Grounded answer",
+        "text": "Gemini answers from the pack only and streams back with source chips."
+      }
     ]
   },
   {
@@ -151,77 +225,7 @@
       "Backend processing for GC-content analysis, ORF detection, nucleotide distribution and FASTA validation.",
       "Gemini AI APIs for sequence-specific natural-language summaries and chatbot-based genomics help.",
       "Animated AI assistant chatbot with contextual interactions, built with GSAP.",
-      "REST API with JWT and bcrypt authentication.",
-      "Generates a PDF report for each analysis."
-    ],
-    "pipeline": [
-      {
-        "title": "FASTA validation",
-        "text": "Checks that the uploaded sequence is valid FASTA."
-      },
-      {
-        "title": "Sequence analysis",
-        "text": "GC-content, nucleotide distribution and ORF detection."
-      },
-      {
-        "title": "AI interpretation & report",
-        "text": "Gemini explains the results in plain language; the app exports a PDF report."
-      }
-    ],
-    "sample": {
-      "title": "Sample analysis: test_sequence.fasta",
-      "stats": [
-        {
-          "label": "Length",
-          "value": "171 bp"
-        },
-        {
-          "label": "GC content",
-          "value": "53.21%"
-        },
-        {
-          "label": "ORF",
-          "value": "Found"
-        }
-      ],
-      "chart": {
-        "id": "bases",
-        "kind": "grouped",
-        "title": "Base distribution",
-        "unit": "%",
-        "max": 40,
-        "decimals": 1,
-        "height": 230,
-        "series": [
-          "Share of bases"
-        ],
-        "data": [
-          {
-            "label": "A",
-            "values": [
-              24
-            ]
-          },
-          {
-            "label": "T",
-            "values": [
-              22.8
-            ]
-          },
-          {
-            "label": "G",
-            "values": [
-              30.4
-            ]
-          },
-          {
-            "label": "C",
-            "values": [
-              22.8
-            ]
-          }
-        ]
-      }
-    }
+      "REST API with JWT and bcrypt authentication."
+    ]
   }
 ]
