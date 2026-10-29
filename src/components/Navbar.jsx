@@ -8,7 +8,7 @@ const initials = profile.name
   .join('')
 
 const linkClass =
-  'rounded-md px-3 py-2 text-sm transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-zinc-400 hover:text-white'
+  'rounded-md px-3 py-2 text-sm transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent text-stone-400 hover:text-white'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -34,18 +34,18 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-40 border-b transition-colors duration-300 ${
         solid
-          ? 'backdrop-blur-md border-white/10 bg-ink/70'
+          ? 'backdrop-blur-md border-white/10 bg-bg/70'
           : 'border-transparent bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Main">
+      <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Main">
         <a
           href="#top"
           aria-label={profile.name}
-          className="rounded-md font-display text-xl font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-white"
+          className="rounded-md text-xl font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent text-white"
         >
           {initials}
-          <span className="text-neon">.</span>
+          <span className="text-accent">.</span>
         </a>
 
         <div className="flex items-center gap-1">
@@ -54,7 +54,7 @@ export default function Navbar() {
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className={item.id === 'twin' ? `${linkClass} font-medium text-neon` : linkClass}
+                  className={item.id === 'twin' ? `${linkClass} font-medium text-accent` : linkClass}
                 >
                   {item.label}
                 </a>
@@ -63,7 +63,7 @@ export default function Navbar() {
           </ul>
           <button
             type="button"
-            className="rounded-md p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 md:hidden text-zinc-400 hover:bg-white/10"
+            className="rounded-md p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:hidden text-stone-400 hover:bg-white/10"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? site.labels.closeMenu : site.labels.openMenu}

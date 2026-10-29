@@ -10,14 +10,14 @@ function errorText(code) {
 }
 
 const BUBBLE = {
-  refused: 'border-amber-400/25 bg-amber-400/[0.05]',
+  refused: 'border-line bg-surface text-stone-300',
   error: 'border-red-400/30 bg-red-500/[0.06] text-red-300',
 }
 
 export default function ChatMessage({ message, onSource }) {
   if (message.role === 'user') {
     return (
-      <li className="ml-10 animate-msg-in self-end rounded-2xl rounded-br-md border border-blue-500/30 bg-blue-500/15 px-4 py-2.5 text-sm whitespace-pre-wrap text-blue-50">
+      <li className="ml-10 animate-msg-in self-end rounded-2xl rounded-br-md bg-stone-800 px-4 py-2.5 text-sm whitespace-pre-wrap text-stone-100">
         <span className="sr-only">{t.you}: </span>
         {message.content}
       </li>
@@ -29,7 +29,7 @@ export default function ChatMessage({ message, onSource }) {
     <li className="mr-6 flex animate-msg-in items-end gap-2.5 self-start">
       <TwinAvatar size="sm" busy={streaming} />
       <div
-        className={`min-w-0 rounded-2xl rounded-bl-md border px-4 py-2.5 text-sm leading-relaxed text-zinc-100 ${BUBBLE[message.status] ?? 'border-white/10 bg-white/[0.04]'}`}
+        className={`min-w-0 rounded-2xl rounded-bl-md border px-4 py-2.5 text-sm leading-relaxed text-stone-100 ${BUBBLE[message.status] ?? 'border-line bg-surface'}`}
       >
         <span className="sr-only">{t.twin}: </span>
         {message.status === 'error' ? (
@@ -39,7 +39,7 @@ export default function ChatMessage({ message, onSource }) {
         ) : (
           <p className="whitespace-pre-wrap">
             {message.content}
-            {streaming && <span aria-hidden="true" className="ml-0.5 inline-block h-4 w-1.5 translate-y-0.5 animate-caret rounded-sm bg-cyan-300" />}
+            {streaming && <span aria-hidden="true" className="ml-0.5 inline-block h-4 w-1.5 translate-y-0.5 animate-caret rounded-sm bg-accent" />}
           </p>
         )}
 
@@ -53,12 +53,12 @@ export default function ChatMessage({ message, onSource }) {
                     <button
                       type="button"
                       onClick={() => onSource(s.anchor)}
-                      className="rounded-full border border-cyan-400/25 px-2.5 py-0.5 text-xs text-cyan-200 transition hover:border-cyan-300/60 hover:bg-cyan-400/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                      className="rounded-full border border-accent/25 px-2.5 py-0.5 text-xs text-accent transition hover:border-accent/60 hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                     >
                       {s.section}: {s.title} →
                     </button>
                   ) : (
-                    <span className="rounded-full border border-white/10 px-2.5 py-0.5 text-xs text-zinc-400">
+                    <span className="rounded-full border border-line px-2.5 py-0.5 text-xs text-stone-400">
                       {s.section}: {s.title}
                     </span>
                   )}

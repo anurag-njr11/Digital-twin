@@ -8,14 +8,14 @@ import site from '../data/site.json'
 const t = site.twin
 const MAX_CHARS = 500
 const STATUS_DOT = {
-  idle: 'bg-emerald-400',
-  thinking: 'animate-pulse bg-amber-300',
-  writing: 'animate-pulse bg-cyan-300',
+  idle: 'bg-accent',
+  thinking: 'animate-pulse bg-accent',
+  writing: 'animate-pulse bg-accent',
   error: 'bg-red-400',
 }
 
 const iconButton =
-  'inline-flex items-center gap-1.5 rounded-full p-2 text-zinc-400 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500'
+  'inline-flex items-center gap-1.5 rounded-full p-2 text-stone-400 transition hover:bg-surface hover:text-stone-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
 
 // Slide-over chat with the twin (R4.1, R4.2). Lazy-loaded on first open so it stays out of the initial bundle (N1.2).
 export default function TwinPanel({ onClose, initialQuestion }) {
@@ -111,23 +111,22 @@ export default function TwinPanel({ onClose, initialQuestion }) {
 
   return (
     <div className="fixed inset-0 z-50">
-      <div ref={backdropRef} className="absolute inset-0 bg-ink/70" aria-hidden="true" onClick={() => close()} />
+      <div ref={backdropRef} className="absolute inset-0 bg-bg/70" aria-hidden="true" onClick={() => close()} />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="twin-title"
         aria-describedby="twin-disclosure"
-        className="absolute inset-y-0 right-0 flex w-full flex-col border-l border-white/10 bg-[#07070c] shadow-2xl will-change-transform md:max-w-md"
+        className="absolute inset-y-0 right-0 flex w-full flex-col border-l border-line bg-bg shadow-2xl will-change-transform md:max-w-md"
       >
-        <div aria-hidden="true" className="h-px bg-linear-to-r from-blue-500 via-violet-500 to-cyan-400" />
-        <header className="flex items-center gap-3 border-b border-white/10 px-4 py-3">
+        <header className="flex items-center gap-3 border-b border-line bg-surface px-4 py-3">
           <TwinAvatar busy={busy} />
           <div className="min-w-0 flex-1">
-            <h2 id="twin-title" className="font-display text-lg leading-tight font-bold text-white">
+            <h2 id="twin-title" className="font-serif text-2xl leading-tight text-stone-50">
               {t.title}
             </h2>
-            <p aria-hidden="true" className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] tracking-[0.18em] text-zinc-400 uppercase">
+            <p aria-hidden="true" className="mt-0.5 flex items-center gap-1.5 text-xs text-stone-400">
               <span className={`size-1.5 rounded-full ${STATUS_DOT[state]}`} />
               {t.status[state]}
             </p>
@@ -143,22 +142,22 @@ export default function TwinPanel({ onClose, initialQuestion }) {
           {messages.length === 0 ? (
             <div className="animate-msg-in">
               <TwinAvatar size="lg" />
-              <p className="mt-4 font-display text-2xl font-bold tracking-tight text-white">{t.welcome}</p>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-300">{t.welcomeText}</p>
-              <p id="twin-disclosure" className="mt-2 text-xs text-zinc-500">
+              <p className="mt-4 font-serif text-3xl text-stone-50">{t.welcome}</p>
+              <p className="mt-2 text-sm leading-relaxed text-stone-300">{t.welcomeText}</p>
+              <p id="twin-disclosure" className="mt-2 text-xs text-stone-500">
                 {t.disclosure}
               </p>
-              <p className="mt-6 mb-2 font-mono text-[11px] tracking-[0.2em] text-neon uppercase">{t.tryAsking}</p>
+              <p className="mt-6 mb-2 text-sm font-medium text-accent">{t.tryAsking}</p>
               <ul className="flex flex-col gap-2">
                 {t.suggestions.map((q) => (
                   <li key={q}>
                     <button
                       type="button"
                       onClick={() => submit(q)}
-                      className="group flex w-full items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left text-sm text-zinc-200 transition hover:border-blue-500/50 hover:bg-blue-500/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                      className="group flex w-full items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3 text-left text-sm text-stone-200 transition hover:border-stone-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                     >
                       <span className="flex-1">{q}</span>
-                      <span aria-hidden="true" className="text-neon transition-transform group-hover:translate-x-1">
+                      <span aria-hidden="true" className="text-accent transition-transform group-hover:translate-x-1">
                         →
                       </span>
                     </button>
@@ -168,7 +167,7 @@ export default function TwinPanel({ onClose, initialQuestion }) {
             </div>
           ) : (
             <>
-              <p id="twin-disclosure" className="text-center text-xs text-zinc-500">
+              <p id="twin-disclosure" className="text-center text-xs text-stone-500">
                 {t.disclosure}
               </p>
               <ol className="mt-4 flex flex-col gap-4">
@@ -186,13 +185,13 @@ export default function TwinPanel({ onClose, initialQuestion }) {
         </div>
 
         <form
-          className="border-t border-white/10 p-3"
+          className="border-t border-line bg-surface p-3"
           onSubmit={(e) => {
             e.preventDefault()
             submit(draft)
           }}
         >
-          <div className="flex items-end gap-2 rounded-2xl border border-white/10 bg-white/[0.04] p-1.5 pl-4 transition focus-within:border-blue-500/60">
+          <div className="flex items-end gap-2 rounded-xl border border-line bg-bg p-1.5 pl-4 transition focus-within:border-accent/60">
             <label htmlFor="twin-input" className="sr-only">
               {t.placeholder}
             </label>
@@ -211,20 +210,20 @@ export default function TwinPanel({ onClose, initialQuestion }) {
                   submit(draft)
                 }
               }}
-              className="max-h-32 min-h-9 flex-1 resize-none bg-transparent py-2 text-sm text-zinc-100 field-sizing-content placeholder:text-zinc-500 focus:outline-none"
+              className="max-h-32 min-h-9 flex-1 resize-none bg-transparent py-2 text-sm text-stone-100 field-sizing-content placeholder:text-stone-500 focus:outline-none"
             />
             <button
               type="submit"
               disabled={busy || !draft.trim()}
               aria-label={t.send}
-              className="grid size-9 shrink-0 place-items-center rounded-full bg-neon text-ink shadow-[0_0_20px_rgba(37,99,235,0.35)] transition hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:opacity-40 disabled:shadow-none"
+              className="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-on-accent transition hover:bg-accent-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-40"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 19V5M5 12l7-7 7 7" />
               </svg>
             </button>
           </div>
-          <p id="twin-count" className="mt-1 text-right font-mono text-[11px] text-zinc-500">
+          <p id="twin-count" className="mt-1 text-right font-mono text-[11px] text-stone-500">
             {t.charCount.replace('{count}', draft.length).replace('{max}', MAX_CHARS)}
           </p>
         </form>

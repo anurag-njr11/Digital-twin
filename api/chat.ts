@@ -20,6 +20,9 @@ function getHandler() {
   // Without Upstash (local dev) the twin runs with no rate limit, cap or logs.
   const redis = redisUrl && redisToken ? createRedis(redisUrl, redisToken) : undefined
   if (redis && !salt) throw new Error('IP_HASH_SALT is required when Upstash is configured')
+  // A deployed twin with no limiter would let anyone spend the Gemini key, so it refuses to start instead.
+  const deployed = process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview'
+  if (deployed && !(redis && salt)) throw new Error('UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN and IP_HASH_SALT must be set when deployed')
   handler = createChatHandler({
     provider: new GeminiProvider(apiKey, process.env.GEMINI_MODEL || DEFAULT_MODEL),
     persona: read('persona.md'),

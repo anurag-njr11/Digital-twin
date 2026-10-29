@@ -56,8 +56,7 @@
     }
   },
   "hero": {
-    "tag": "B.Tech · Atria University · Bengaluru",
-    "scrollDown": "Scroll to About"
+    "tag": "B.Tech '28 · Atria University · Bengaluru"
   },
   "labels": {
     "chatWithTwin": "Chat with my twin",
@@ -69,7 +68,6 @@
     "techStack": "Tech stack",
     "credentialId": "Credential ID",
     "education": "Education",
-    "interests": "Interests",
     "skipToContent": "Skip to content",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -81,7 +79,10 @@
     "objective": "Objective",
     "chartTable": "Data table",
     "bio": "Who I am",
-    "skillCount": "{n} skills"
+    "demo": "Live demo",
+    "featured": "Featured",
+    "basedIn": "Based in",
+    "lookingFor": "Looking for"
   },
   "twin": {
     "title": "Ask my twin",
@@ -92,7 +93,7 @@
     "suggestions": [
       "What did you do at your internship?",
       "How did you handle class imbalance in the intrusion detection project?",
-      "Which of your projects used Gemini?",
+      "What is RAGLabs and how do you evaluate it?",
       "How can I contact you?"
     ],
     "placeholder": "Ask about my work…",
@@ -118,9 +119,13 @@
       "network": "Couldn't reach the server. Check your connection and try again."
     }
   },
-  "twinCta": {
-    "eyebrow": "Ask my AI twin",
-    "title": "Questions about my work? Ask the twin.",
-    "text": "It answers from the content on this page only, links each answer to the section it came from, and tells you when it doesn't know."
+  "heroTwin": {
+    "eyebrow": "AI twin · answers from this page only",
+    "title": "Ask me anything about my work",
+    "text": "It cites the section each answer comes from and says when it doesn't know.",
+    "suggestions": [
+      "What is RAGLabs and how do you evaluate it?",
+      "Are you open to internships?"
+    ]
   }
 }

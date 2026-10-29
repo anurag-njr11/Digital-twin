@@ -2,13 +2,17 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-ink: #05060d;
-  --color-neon: #3b82f6;
-  --color-neon-cyan: #22d3ee;
-  --color-neon-purple: #9333ea;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
+  /* Warm off-black page, a visibly lighter card surface, and one accent: the violet from the RAGLabs logo. */
+  --color-bg: #12100e;
+  --color-surface: #1d1a17;
+  --color-line: #2f2a25;
+  --color-accent: #b9a2ff;
+  --color-accent-strong: #9f82ff;
+  --color-on-accent: #170f2e;
 
   /* Twin chat motion. All of it collapses to the end state under prefers-reduced-motion (see below). */
   --animate-msg-in: msg-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -20,8 +24,7 @@
   @keyframes msg-in {
     from {
       opacity: 0;
-      transform: translateY(14px) scale(0.97);
-      filter: blur(6px);
+      transform: translateY(8px);
     }
   }
   @keyframes pop-in {
@@ -49,25 +52,15 @@
   }
 }
 
-/* Frosted card used across sections. --mx/--my are set by useSpotlight for a cursor glow. */
-@utility glass {
-  background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgb(59 130 246 / 0.08), transparent 45%);
-  border: 1px solid rgb(148 163 184 / 0.12);
-  background-color: rgb(148 163 184 / 0.045);
-  backdrop-filter: blur(14px);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
-}
-
-/* White-to-cyan gradient text for display headings. */
-@utility text-gradient {
-  background-image: linear-gradient(to right, #ffffff, #dbeafe, #22d3ee);
-  background-clip: text;
-  color: transparent;
+/* Plain card used across sections. */
+@utility card {
+  border: 1px solid var(--color-line);
+  background-color: var(--color-surface);
 }
 
 html {
   color-scheme: dark;
-  background-color: #05060d;
+  background-color: var(--color-bg);
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;
 }
@@ -77,8 +70,8 @@ body {
 }
 
 ::selection {
-  background-color: #2563eb;
-  color: #fff;
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

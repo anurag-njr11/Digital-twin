@@ -6,7 +6,7 @@ export default function TypingDots({ label }) {
     <span className="inline-flex items-center gap-1 py-1.5">
       <span className="sr-only">{label}</span>
       {DELAYS.map((d) => (
-        <span key={d} aria-hidden="true" className={`size-1.5 animate-typing rounded-full bg-cyan-300 ${d}`} />
+        <span key={d} aria-hidden="true" className={`size-1.5 animate-typing rounded-full bg-accent ${d}`} />
       ))}
     </span>
   )

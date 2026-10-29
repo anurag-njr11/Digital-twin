@@ -25,16 +25,16 @@ export default function BarChart({ chart }) {
             <g key={d.label} className="group">
               <title>{`${d.label}: ${fmt(d.value)}`}</title>
               <rect x="0" y={y} width={W} height={ROW} className="fill-transparent" />
-              <text x={LABEL_W - 8} y={y + ROW / 2} dominantBaseline="middle" textAnchor="end" className="font-mono text-[10px] fill-zinc-400">
+              <text x={LABEL_W - 8} y={y + ROW / 2} dominantBaseline="middle" textAnchor="end" className="font-mono text-[10px] fill-stone-400">
                 {d.label}
               </text>
               <rect x={LABEL_W} y={y + (ROW - BAR) / 2} width={TRACK} height={BAR} rx="4" className="fill-white/5" />
               <path
                 data-bar-h
                 d={barPath(LABEL_W, y + (ROW - BAR) / 2, w, BAR)}
-                className="transition-opacity group-hover:opacity-80 fill-blue-500"
+                className="transition-opacity group-hover:opacity-80 fill-accent"
               />
-              <text x={LABEL_W + w + 6} y={y + ROW / 2} dominantBaseline="middle" className="font-mono text-[10px] fill-zinc-200">
+              <text x={LABEL_W + w + 6} y={y + ROW / 2} dominantBaseline="middle" className="font-mono text-[10px] fill-stone-200">
                 {fmt(d.value)}
               </text>
             </g>

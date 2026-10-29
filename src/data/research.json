@@ -3,7 +3,7 @@
     {
       "id": "critical-thinking-framework",
       "title": "Rebuilding Critical Thinking in the AI Era: A University Learning Framework",
-      "role": "Lead Author",
+      "role": "Working paper",
       "area": "AI in Education & Learning Systems Research",
       "bullets": [
         "A framework for how universities can bring AI into teaching while protecting critical thinking and conceptual learning.",
@@ -17,7 +17,7 @@
         "Oral and process-based assessment"
       ],
       "objective": "Make sure technology improves learning without reducing how much students engage with understanding and applying ideas, so humans stay responsible for the reasoning.",
-      "url": "https://docs.google.com/document/d/1yG4JWqiKyx7TKkBSFKAjks26hjvblcTMFr4OrkZF1Rg/edit?usp=sharing"
+      "url": "https://docs.google.com/document/d/1yG4JWqiKyx7TKkBSFKAjks26hjvblcTMFr4OrkZF1Rg/preview"
     }
   ],
   "achievements": [
@@ -33,7 +33,7 @@
       "text": "Semi-finalist at TiE U Bangalore Chapter 2025.",
       "title": "TiE U Bangalore Chapter 2025",
       "highlight": "Semi-finalist",
-      "detail": "Reached the semi-finals of the TiE U Bangalore Chapter 2025."
+      "detail": null
     },
     {
       "id": "pjmt-green-earth",
@@ -49,14 +49,16 @@
       "name": "Introduction to LangChain",
       "issuer": "LangChain",
       "date": "Jul 2026",
-      "credentialId": "g87ju0y9ij"
+      "credentialId": "g87ju0y9ij",
+      "url": "https://academy.langchain.com/certificates/g87ju0y9ij"
     },
     {
       "id": "fcc-scientific-python",
       "name": "Scientific Computing with Python",
       "issuer": "freeCodeCamp",
       "date": "Jun 2026",
-      "credentialId": "ace_1729-scwp"
+      "credentialId": "ace_1729-scwp",
+      "url": "https://www.freecodecamp.org/certification/ace_1729/scientific-computing-with-python-v7"
     }
   ],
   "leadership": [

@@ -30,8 +30,9 @@ describe('context pack', () => {
   })
 
   it('keeps metrics and dates verbatim (R5.4)', () => {
-    expect(pack).toContain('~99% classification accuracy')
-    expect(pack).toContain('R² ≈ 0.98 severity prediction')
+    expect(pack).toContain('overall accuracy ~99%')
+    expect(pack).toContain('R² ≈ 0.98')
+    expect(pack).toContain('8 of 17 test attacks')
     expect(pack).toContain('Jun 2026 – Jul 2026')
   })
 

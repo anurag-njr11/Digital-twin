@@ -39,9 +39,9 @@ describe('limiter', () => {
     expect(hashIp('1.2.3.4', 'a')).not.toBe(hashIp('1.2.3.4', 'b'))
   })
 
-  it('fails open when Redis is down', async () => {
+  it('fails closed when Redis is down, so spend stays capped', async () => {
     const limiter = createLimiter({ pipeline: () => Promise.reject(new Error('down')) }, 'salt')
-    expect(await limiter.check('1.2.3.4')).toBe('ok')
+    expect(await limiter.check('1.2.3.4')).toBe('daily_cap')
   })
 
   it('reads the client IP from Vercel headers', () => {

@@ -4,8 +4,8 @@ import site from '../data/site.json'
 // visually hidden table with the same numbers so the data never depends on seeing the bars.
 export default function ChartFigure({ title, columns, rows, legend, children }) {
   return (
-    <figure data-reveal className="glass flex h-full flex-col rounded-2xl p-5">
-      <figcaption className="font-mono text-[11px] tracking-[0.2em] uppercase text-zinc-400">{title}</figcaption>
+    <figure className="flex h-full flex-col rounded-xl bg-bg/70 p-4">
+      <figcaption className="text-sm font-medium text-stone-300">{title}</figcaption>
       {legend}
       <div aria-hidden="true" className="mt-4 flex flex-1 items-center">
         {children}

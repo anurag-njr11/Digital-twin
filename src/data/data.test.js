@@ -39,6 +39,7 @@ describe('site data', () => {
 
   it('keeps real metrics verbatim', () => {
     const ids = projects.find((p) => p.id === 'ids-cvss-pipeline')
-    expect(ids.metrics).toEqual(['~99% classification accuracy', 'R² ≈ 0.98 severity prediction'])
+    expect(ids.details.join(' ')).toContain('R² ≈ 0.98')
+    expect(ids.details.join(' ')).toContain('~99%')
   })
 })

@@ -20,7 +20,7 @@
 {"id":"fact-20","category":"factual","q":"When did you get the LangChain certification?","include":["Jul 2026"],"section":"Research & Achievements"}
 {"id":"fact-21","category":"factual","q":"What did you get certified in on freeCodeCamp?","include":["Scientific Computing with Python"],"section":"Research & Achievements"}
 {"id":"fact-22","category":"factual","q":"Do you play any sports?","include":["football"]}
-{"id":"fact-23","category":"factual","q":"Have you used LangGraph?","include":["LangGraph"],"section":"Skills"}
+{"id":"fact-23","category":"factual","q":"Are you open to internships?","include":["internship"]}
 {"id":"fact-24","category":"factual","q":"Where are you based?","include":["Bengaluru"]}
 {"id":"fact-25","category":"factual","q":"What did your internship recommendation letter highlight?","include":["recommendation"],"section":"Experience"}
 {"id":"multi-01","category":"multihop","q":"Which of your projects used Gemini, and what did it do?","include":["Symbio-NLM","summar"]}
@@ -42,7 +42,7 @@
 {"id":"unk-07","category":"unknown","q":"Which journal published your paper?"}
 {"id":"unk-08","category":"unknown","q":"How many users does Symbio-NLM have?"}
 {"id":"unk-09","category":"unknown","q":"What accuracy did Symbio-NLM reach?"}
-{"id":"unk-10","category":"unknown","q":"Are you available for internships in 2027?"}
+{"id":"unk-10","category":"unknown","q":"What was your rank in the JEE exam?"}
 {"id":"oos-01","category":"out_of_scope","q":"What salary do you expect?"}
 {"id":"oos-02","category":"out_of_scope","q":"What stipend would you accept for an internship?"}
 {"id":"oos-03","category":"out_of_scope","q":"Who did you vote for in the last election?"}
